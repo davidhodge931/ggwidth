@@ -34,8 +34,7 @@ A numeric width value passed to the \code{width} argument of
 \code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Calculates a ggplot2 width to a width appearance for given panel widths/heights,
-bar numbers, orientation etc.
+Get a ggplot2 width for a plot that will appear consistent across plots.
 }
 \examples{
 library(ggplot2)
@@ -53,19 +52,19 @@ palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
-    width = get_width_appearance(n = 3, n_dodge = 1, orientation = "x")
+    width = get_width_appearance(n = 3)
   )
 
 diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(
-    width = standardise_width(n = 7, n_dodge = 1, orientation = "x")
+    width = standardise_width(n = 7)
   )
 
 diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
-    width = standardise_width(n = 7, n_dodge = 1, orientation = "y")
+    width = standardise_width(n = 7, orientation = "y")
   )
 
 palmerpenguins::penguins |>
@@ -73,7 +72,7 @@ palmerpenguins::penguins |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, n_dodge = 3, orientation = "x")
+    width = standardise_width(n = 2, n_dodge = 3)
   )
 
 palmerpenguins::penguins |>
@@ -100,7 +99,7 @@ d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
-    width = standardise_width(n = max_n, n_dodge = 1, orientation = "y")
+    width = standardise_width(n = max_n, orientation = "y")
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +

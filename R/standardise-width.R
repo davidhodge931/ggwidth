@@ -1,8 +1,7 @@
 #' standardise width to a consistent appearance
 #'
 #' @description
-#' Calculates a ggplot2 width to a width appearance for given panel widths/heights,
-#' bar numbers, orientation etc.
+#' Get a ggplot2 width for a plot that will appear consistent across plots.
 #'
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
