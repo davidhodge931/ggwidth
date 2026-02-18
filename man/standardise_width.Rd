@@ -2,81 +2,89 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width to the reference}
+\title{Standardise bar width across plots}
 \usage{
-standardise_width(n = NULL, dodge_n = 1, orientation = "x", ...)
+standardise_width(
+  n = NULL,
+  dodge_n = 1,
+  orientation = "x",
+  standard = 0.2,
+  ...
+)
 }
 \arguments{
-\item{n}{Number of categories in the plot.}
+\item{n}{Number of categories in the plot. For faceted plots, use the
+maximum \code{n} across all facets to keep bar thickness consistent.}
 
-\item{dodge_n}{Number of dodge groups.}
+\item{dodge_n}{Number of dodge groups. Must match the number of levels in
+the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 
-\item{orientation}{Orientation ("x" or "y").}
+\item{orientation}{Orientation of the bars: \code{"x"} for vertical bars
+(thickness scaled to panel width), \code{"y"} for horizontal bars (thickness
+scaled to panel height). Panel heights must be set in absolute units when
+using \code{"y"}.}
 
-\item{...}{Require named arguments.}
+\item{standard}{Scaled width as a proportion of the reference panel.
+Use the same value across plots to ensure consistent bar thickness.
+Defaults to \code{0.2}. E.g. 0.1 for narrower or 0.3 for wider.}
+
+\item{...}{Reserved for future use. Requires named arguments.}
+}
+\value{
+A numeric width value passed to the \code{width} argument of
+\code{geom_bar()} or \code{geom_col()}.
 }
 \description{
-Standardise width to the reference
+Calculates a ggplot2 bar width that produces consistent physical bar
+thickness across plots, orientations, and panel sizes. Set \code{standard} to
+the same value across all calls to ensure bars are visually comparable.
 }
 \examples{
 library(ggplot2)
 library(dplyr)
-library(palmerpalmerpenguins)
 
-#' Set global theme and width reference
-theme_set(theme_grey() +
-            theme(panel.widths = rep(unit(75, "mm"), 2)) +
-            theme(panel.heights = rep(unit(50, "mm"), 2)))
+# Set global theme and panel dimensions
+theme_set(
+  theme_grey() +
+    theme(panel.widths  = rep(unit(75, "mm"), 2)) +
+    theme(panel.heights = rep(unit(50, "mm"), 2))
+)
 
-#' 1. Standard vertical bar chart
+# 1. Standard vertical bar chart
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, fill = species)) +
+  ggplot(aes(x = species, fill = species)) +
   geom_bar(
-    width = standardise_width(
-      n = 2,
-      dodge_n = 1,
-      orientation = "x"
-    )
+    width = standardise_width(n = 3, dodge_n = 1, orientation = "x", standard = 0.3)
   )
 
-#' 2. Vertical bar chart with dodging
-#' Note: dodge_n = 3 matches the 3 species in the fill aesthetic
+# 2. Vertical bar chart with dodging
+# dodge_n = 3 matches the 3 species in the fill aesthetic
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  mutate(sex = str_to_sentence(sex)) |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(
-      n = 2,
-      dodge_n = 3,
-      orientation = "x"
-    )
+    width = standardise_width(n = 2, dodge_n = 3, orientation = "x", standard = 0.3)
   )
 
-#' 3. Horizontal bar chart with dodging
-#' Uses orientation = "y" to scale against panel height
+# 3. Horizontal bar chart with dodging
+# orientation = "y" scales thickness against panel height
 palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
-  mutate(sex = str_to_sentence(sex)) |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(
-      n = 2,
-      dodge_n = 3,
-      orientation = "y",
-    )
+    width = standardise_width(n = 2, dodge_n = 3, orientation = "y", standard = 0.3)
   )
 
-#' 4. Faceted horizontal bars with free scales
-#' Using a reference n ensures bars stay the same thickness across facets
+# 4. Faceted horizontal bars with free scales
+# Using max_n ensures bar thickness is consistent across facets
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
-  country = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
-  value = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
+  country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+  value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
 )
 
 max_n <- d |>
@@ -88,11 +96,7 @@ d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
-    width = standardise_width(
-      n = max_n,
-      dodge_n = 1,
-      orientation = "y"
-    )
+    width = standardise_width(n = max_n, dodge_n = 1, orientation = "y", standard = 0.3)
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +

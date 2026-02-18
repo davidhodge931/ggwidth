@@ -1,42 +1,39 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # ggwidth
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of ggwidth is to standardise the width of bars (and errorbars).
 
 ## Installation
 
-You can install the development version of ggwidth from
-[GitHub](https://github.com/) with:
+You can install the development version of ggwidth from [GitHub](https://github.com/) with:
 
-``` r
+```r
 # install.packages("pak")
 pak::pak("davidhodge931/ggwidth")
 ```
 
-``` r
+```{r setup}
 library(ggplot2)
 library(ggwidth)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(palmerpenguins)
-#> 
-#> Attaching package: 'palmerpenguins'
-#> The following objects are masked from 'package:datasets':
-#> 
-#>     penguins, penguins_raw
 
 theme_set(
   theme_grey() +
@@ -44,8 +41,7 @@ theme_set(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 ```
-
-``` r
+```{r example-1}
 # 1. Standard vertical bar chart
 penguins |>
   filter(!is.na(sex)) |>
@@ -54,10 +50,7 @@ penguins |>
     width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
   )
 ```
-
-<img src="man/figures/README-example-1-1.png" width="100%" />
-
-``` r
+```{r example-2}
 # 2. Vertical bar chart with dodging
 # dodge_n = 3 matches the 3 species in the fill aesthetic
 penguins |>
@@ -68,10 +61,7 @@ penguins |>
     width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
   )
 ```
-
-<img src="man/figures/README-example-2-1.png" width="100%" />
-
-``` r
+```{r example-3}
 # 3. Horizontal bar chart with dodging
 # orientation = "y" scales thickness against panel height
 penguins |>
@@ -82,10 +72,7 @@ penguins |>
     width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
   )
 ```
-
-<img src="man/figures/README-example-3-1.png" width="100%" />
-
-``` r
+```{r example-4}
 # 4. Faceted horizontal bars with free scales
 # Using max_n ensures bar thickness is consistent across facets
 d <- tibble::tibble(
@@ -110,5 +97,3 @@ d |>
   scale_y_discrete(continuous.limits = c(1, max_n)) +
   coord_cartesian(reverse = "y", clip = "off")
 ```
-
-<img src="man/figures/README-example-4-1.png" width="100%" />
