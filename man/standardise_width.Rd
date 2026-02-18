@@ -4,13 +4,7 @@
 \alias{standardise_width}
 \title{Standardise bar width across plots}
 \usage{
-standardise_width(
-  n = NULL,
-  dodge_n = 1,
-  orientation = "x",
-  standard = 0.2,
-  ...
-)
+standardise_width(n = NULL, dodge_n = 1, orientation = "x", scale = 1, ...)
 }
 \arguments{
 \item{n}{Number of categories in the plot. For faceted plots, use the
@@ -24,9 +18,9 @@ the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 scaled to panel height). Panel heights must be set in absolute units when
 using \code{"y"}.}
 
-\item{standard}{Scaled width as a proportion of the reference panel.
-Use the same value across plots to ensure consistent bar thickness.
-Defaults to \code{0.2}. E.g. 0.1 for narrower or 0.3 for wider.}
+\item{scale}{Bar width scale factor. A value of \code{1} (default) corresponds
+to a standard bar width. Increase to make bars thicker, decrease to make
+them thinner. Use the same value across plots for consistent bar thickness.}
 
 \item{...}{Reserved for future use. Requires named arguments.}
 }
@@ -36,7 +30,7 @@ A numeric width value passed to the \code{width} argument of
 }
 \description{
 Calculates a ggplot2 bar width that produces consistent physical bar
-thickness across plots, orientations, and panel sizes. Set \code{standard} to
+thickness across plots, orientations, and panel sizes. Set \code{scale} to
 the same value across all calls to ensure bars are visually comparable.
 }
 \examples{
@@ -46,8 +40,8 @@ library(dplyr)
 # Set global theme and panel dimensions
 theme_set(
   theme_grey() +
-    theme(panel.widths  = rep(unit(75, "mm"), 2)) +
-    theme(panel.heights = rep(unit(50, "mm"), 2))
+    theme(panel.widths  = rep(unit(50, "mm"), 2)) +
+    theme(panel.heights = rep(unit(75, "mm"), 2))
 )
 
 # 1. Standard vertical bar chart
@@ -55,7 +49,7 @@ palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species, fill = species)) +
   geom_bar(
-    width = standardise_width(n = 3, dodge_n = 1, orientation = "x", standard = 0.3)
+    width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
   )
 
 # 2. Vertical bar chart with dodging
@@ -65,7 +59,7 @@ palmerpenguins::penguins |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "x", standard = 0.3)
+    width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
   )
 
 # 3. Horizontal bar chart with dodging
@@ -75,7 +69,7 @@ palmerpenguins::penguins |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "y", standard = 0.3)
+    width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
   )
 
 # 4. Faceted horizontal bars with free scales
@@ -96,10 +90,9 @@ d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
-    width = standardise_width(n = max_n, dodge_n = 1, orientation = "y", standard = 0.3)
+    width = standardise_width(n = max_n, dodge_n = 1, orientation = "y")
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
   coord_cartesian(reverse = "y", clip = "off")
-
 }

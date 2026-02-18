@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Calculates a ggplot2 bar width that produces consistent physical bar
-#' thickness across plots, orientations, and panel sizes. Set `standard` to
+#' thickness across plots, orientations, and panel sizes. Set `scale` to
 #' the same value across all calls to ensure bars are visually comparable.
 #'
 #' @param n Number of categories in the plot. For faceted plots, use the
@@ -13,9 +13,9 @@
 #'   (thickness scaled to panel width), `"y"` for horizontal bars (thickness
 #'   scaled to panel height). Panel heights must be set in absolute units when
 #'   using `"y"`.
-#' @param standard Scaled width as a proportion of the reference panel.
-#'   Use the same value across plots to ensure consistent bar thickness.
-#'   Defaults to `0.2`. E.g. 0.1 for narrower or 0.3 for wider.
+#' @param scale Bar width scale factor. A value of `1` (default) corresponds
+#'   to a standard bar width. Increase to make bars thicker, decrease to make
+#'   them thinner. Use the same value across plots for consistent bar thickness.
 #' @param ... Reserved for future use. Requires named arguments.
 #'
 #' @return A numeric width value passed to the `width` argument of
@@ -30,8 +30,8 @@
 #' # Set global theme and panel dimensions
 #' theme_set(
 #'   theme_grey() +
-#'     theme(panel.widths  = rep(unit(75, "mm"), 2)) +
-#'     theme(panel.heights = rep(unit(50, "mm"), 2))
+#'     theme(panel.widths  = rep(unit(50, "mm"), 2)) +
+#'     theme(panel.heights = rep(unit(75, "mm"), 2))
 #' )
 #'
 #' # 1. Standard vertical bar chart
@@ -39,7 +39,7 @@
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = species, fill = species)) +
 #'   geom_bar(
-#'     width = standardise_width(n = 3, dodge_n = 1, orientation = "x", standard = 0.3)
+#'     width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
 #'   )
 #'
 #' # 2. Vertical bar chart with dodging
@@ -49,7 +49,7 @@
 #'   ggplot(aes(x = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = standardise_width(n = 2, dodge_n = 3, orientation = "x", standard = 0.3)
+#'     width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
 #'   )
 #'
 #' # 3. Horizontal bar chart with dodging
@@ -59,7 +59,7 @@
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = standardise_width(n = 2, dodge_n = 3, orientation = "y", standard = 0.3)
+#'     width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
 #'   )
 #'
 #' # 4. Faceted horizontal bars with free scales
@@ -80,20 +80,22 @@
 #'   mutate(country = forcats::fct_rev(country)) |>
 #'   ggplot(aes(y = country, x = value)) +
 #'   geom_col(
-#'     width = standardise_width(n = max_n, dodge_n = 1, orientation = "y", standard = 0.3)
+#'     width = standardise_width(n = max_n, dodge_n = 1, orientation = "y")
 #'   ) +
 #'   facet_wrap(~continent, scales = "free_y") +
 #'   scale_y_discrete(continuous.limits = c(1, max_n)) +
 #'   coord_cartesian(reverse = "y", clip = "off")
-#'
 standardise_width <- function(
     n = NULL,
     dodge_n = 1,
     orientation = "x",
-    standard = 0.2,
+    scale = 1,
     ...
 ) {
   if (is.null(n)) rlang::abort("n must be specified")
+
+  # Convert scale to standard
+  standard <- scale / 5
 
   # 1. Get current theme settings
   current_theme  <- ggplot2::theme_get()
@@ -120,7 +122,7 @@ standardise_width <- function(
   ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
   ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
 
-  # 4. Reference n scaled to orientation so that standard = 0.2 produces
+  # 4. Reference n scaled to orientation so that scale = 1 produces
   #    equivalent physical bar thickness regardless of orientation
   ref_n_x     <- 3
   ref_dodge_n <- 1
@@ -145,7 +147,7 @@ standardise_width <- function(
   }
 
   if (any(width >= 1)) {
-    rlang::abort("The calculated width must be less than 1. Reduce 'standard' or adjust panel dimensions.")
+    rlang::abort("The calculated width must be less than 1. Reduce 'scale' or adjust panel dimensions.")
   }
 
   return(width)
