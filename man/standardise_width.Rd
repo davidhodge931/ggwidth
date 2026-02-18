@@ -2,7 +2,7 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{standardise width to a consistent appearance}
+\title{Standardise width to a consistent appearance}
 \usage{
 standardise_width(
   n = NULL,
@@ -25,7 +25,7 @@ panel width), \code{"y"} for horizontal (width appearance scaled to panel height
 \item{appearance}{Numeric. Multiplicative factor that controls the width appearance.
 A value of \code{1} (default) is the default width appearance. Increase to make
 a wider width appearance, and decrease to make a thinner width appearance.
-If \code{NULL}, uses the value set by \code{set_width_appearance()}, falling back to \code{1}.}
+If \code{NULL}, uses the value set by \code{set_width()}, falling back to \code{1}.}
 
 \item{...}{Reserved for future use. Requires named arguments.}
 }
@@ -36,76 +36,6 @@ A numeric width value passed to the \code{width} argument of
 \description{
 Get a ggplot2 width for a plot that will appear consistent across plots.
 }
-\examples{
-library(ggplot2)
-library(dplyr)
-
-set_theme(
-  theme_grey() +
-    theme(panel.widths  = rep(unit(75, "mm"), 2)) +
-    theme(panel.heights = rep(unit(50, "mm"), 2))
-)
-
-set_width_appearance(1)
-
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species)) +
-  geom_bar(
-    width = get_width_appearance(n = 3)
-  )
-
-diamonds |>
-  ggplot(aes(x = color)) +
-  geom_bar(
-    width = standardise_width(n = 7)
-  )
-
-diamonds |>
-  ggplot(aes(y = color)) +
-  geom_bar(
-    width = standardise_width(n = 7, orientation = "y")
-  )
-
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, fill = species)) +
-  geom_bar(
-    position = position_dodge(),
-    width = standardise_width(n = 2, n_dodge = 3)
-  )
-
-palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |>
-  ggplot(aes(y = sex, fill = species)) +
-  geom_bar(
-    position = position_dodge(),
-    width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
-  )
-
-d <- tibble::tibble(
-  continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
-                "South America", "South America"),
-  country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
-  value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
-)
-
-max_n <- d |>
-  count(continent) |>
-  pull(n) |>
-  max()
-
-d |>
-  mutate(country = forcats::fct_rev(country)) |>
-  ggplot(aes(y = country, x = value)) +
-  geom_col(
-    width = standardise_width(n = max_n, orientation = "y")
-  ) +
-  facet_wrap(~continent, scales = "free_y") +
-  scale_y_discrete(continuous.limits = c(1, max_n)) +
-  coord_cartesian(reverse = "y", clip = "off")
-
-}
 \seealso{
-\code{\link[=set_width_appearance]{set_width_appearance()}}
+\code{\link[=set_width]{set_width()}}
 }

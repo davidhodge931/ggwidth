@@ -1,4 +1,4 @@
-#' standardise width to a consistent appearance
+#' Standardise width to a consistent appearance
 #'
 #' @description
 #' Get a ggplot2 width for a plot that will appear consistent across plots.
@@ -12,7 +12,7 @@
 #' @param appearance Numeric. Multiplicative factor that controls the width appearance.
 #'   A value of `1` (default) is the default width appearance. Increase to make
 #'   a wider width appearance, and decrease to make a thinner width appearance.
-#'   If `NULL`, uses the value set by `set_width_appearance()`, falling back to `1`.
+#'   If `NULL`, uses the value set by `set_width()`, falling back to `1`.
 #' @param ... Reserved for future use. Requires named arguments.
 #'
 #' @return A numeric width value passed to the `width` argument of
@@ -20,76 +20,7 @@
 #'
 #' @export
 #'
-#' @seealso [set_width_appearance()]
-#'
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#'
-#' set_theme(
-#'   theme_grey() +
-#'     theme(panel.widths  = rep(unit(75, "mm"), 2)) +
-#'     theme(panel.heights = rep(unit(50, "mm"), 2))
-#' )
-#'
-#' set_width_appearance(1)
-#'
-#' palmerpenguins::penguins |>
-#'   filter(!is.na(sex)) |>
-#'   ggplot(aes(x = species)) +
-#'   geom_bar(
-#'     width = get_width_appearance(n = 3)
-#'   )
-#'
-#' diamonds |>
-#'   ggplot(aes(x = color)) +
-#'   geom_bar(
-#'     width = standardise_width(n = 7)
-#'   )
-#'
-#' diamonds |>
-#'   ggplot(aes(y = color)) +
-#'   geom_bar(
-#'     width = standardise_width(n = 7, orientation = "y")
-#'   )
-#'
-#' palmerpenguins::penguins |>
-#'   filter(!is.na(sex)) |>
-#'   ggplot(aes(x = sex, fill = species)) +
-#'   geom_bar(
-#'     position = position_dodge(),
-#'     width = standardise_width(n = 2, n_dodge = 3)
-#'   )
-#'
-#' palmerpenguins::penguins |>
-#'   tidyr::drop_na(sex) |>
-#'   ggplot(aes(y = sex, fill = species)) +
-#'   geom_bar(
-#'     position = position_dodge(),
-#'     width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
-#'   )
-#'
-#' d <- tibble::tibble(
-#'   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
-#'                 "South America", "South America"),
-#'   country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
-#'   value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
-#' )
-#'
-#' max_n <- d |>
-#'   count(continent) |>
-#'   pull(n) |>
-#'   max()
-#'
-#' d |>
-#'   mutate(country = forcats::fct_rev(country)) |>
-#'   ggplot(aes(y = country, x = value)) +
-#'   geom_col(
-#'     width = standardise_width(n = max_n, orientation = "y")
-#'   ) +
-#'   facet_wrap(~continent, scales = "free_y") +
-#'   scale_y_discrete(continuous.limits = c(1, max_n)) +
-#'   coord_cartesian(reverse = "y", clip = "off")
+#' @seealso [set_width()]
 #'
 standardise_width <- function(
     n = NULL,
@@ -101,7 +32,7 @@ standardise_width <- function(
   if (is.null(n)) rlang::abort("n must be specified")
 
   # Resolve appearance from global option if not supplied, defaulting to 1
-  appearance <- appearance %||% getOption("ggwidth.width_appearance", default = 1)
+  appearance <- appearance %||% getOption("ggwidth.appearance", default = 1)
 
   # Convert to internal width
   appearance <- appearance / 7.5
@@ -130,8 +61,7 @@ standardise_width <- function(
   ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
   ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
 
-  # 4. Reference n scaled to orientation so that appearance = 1 produces
-  #    equivalent width appearance regardless of orientation
+  # 4. Reference n scaled to orientation
   ref_n_x     <- 3
   ref_n_dodge <- 1
   ref_n <- if (orientation == "x") {
@@ -166,36 +96,33 @@ standardise_width <- function(
 safe_convert_mm <- function(x) {
   if (is.null(x)) return(NA)
 
-  # Handle list (theme) or vector (unit object) by taking the first element
   u <- if (is.list(x)) x[[1]] else x[1]
 
   tryCatch({
-    # Perform conversion
     val <- grid::convertUnit(u, "mm", valueOnly = TRUE)
-    # Ensure a single numeric value comes back
     if (length(val) > 1) val[1] else val
   }, error = function(e) NA)
 }
 
-#' Set a global width appearance appearance
+#' Set a global width appearance
 #'
 #' @description
 #' Sets a global default for the `appearance` argument in `standardise_width()`.
 #' All subsequent calls to `standardise_width()` will use this value when
 #' `appearance = NULL`.
 #'
-#' @param x Numeric. A value of `1` (default) corresponds to a appearance width.
-#'   Increase to make a wider width appearance, and decrease to make a thinner
-#'   width appearance.
+#' @param appearance Numeric. A value of `1` (default) corresponds to a default
+#'   width appearance. Increase to make a wider width appearance, and decrease
+#'   to make a thinner width appearance.
 #'
 #' @seealso [standardise_width()]
 #'
 #' @export
 #'
 #' @examples
-#' set_width_appearance(1)
-#' set_width_appearance(0.75)
-#' set_width_appearance(1.33)
-set_width_appearance <- function(x = 1) {
-  options(ggwidth.width_appearance = x)
+#' set_width(1)
+#' set_width(0.75)
+#' set_width(1.33)
+set_width <- function(appearance = 1) {
+  options(ggwidth.appearance = appearance)
 }
