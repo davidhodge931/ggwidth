@@ -2,58 +2,76 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise bar width across plots}
+\title{Standardise width appearance}
 \usage{
-standardise_width(n = NULL, dodge_n = 1, orientation = "x", scale = 1, ...)
+standardise_width(
+  n = NULL,
+  dodge_n = 1,
+  orientation = "x",
+  standard = NULL,
+  ...
+)
 }
 \arguments{
 \item{n}{Number of categories in the plot. For faceted plots, use the
-maximum \code{n} across all facets to keep bar thickness consistent.}
+maximum \code{n} across all facets to keep thickness consistent.}
 
 \item{dodge_n}{Number of dodge groups. Must match the number of levels in
 the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 
-\item{orientation}{Orientation of the bars: \code{"x"} for vertical bars
-(thickness scaled to panel width), \code{"y"} for horizontal bars (thickness
-scaled to panel height). Panel heights must be set in absolute units when
-using \code{"y"}.}
+\item{orientation}{Orientation: \code{"x"} for vertical (thickness scaled to
+panel width), \code{"y"} for horizontal (thickness scaled to panel height).
+Panel heights must be set in absolute units when using \code{"y"}.}
 
-\item{scale}{Bar width scale factor. A value of \code{1} (default) corresponds
-to a standard bar width. Increase to make bars thicker, decrease to make
-them thinner. Use the same value across plots for consistent bar thickness.}
+\item{standard}{Numeric. Controls element thickness. A value of \code{1}
+(default) corresponds to a standard width. Increase to make elements
+thicker, decrease to make them thinner. If \code{NULL}, uses the value set
+by \code{set_width()}, falling back to \code{1}. Use the same value across plots
+for consistent width appearance.}
 
 \item{...}{Reserved for future use. Requires named arguments.}
 }
 \value{
 A numeric width value passed to the \code{width} argument of
-\code{geom_bar()} or \code{geom_col()}.
+\code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Calculates a ggplot2 bar width that produces consistent physical bar
-thickness across plots, orientations, and panel sizes. Set \code{scale} to
-the same value across all calls to ensure bars are visually comparable.
+Calculates a ggplot2 width that produces consistent width appearance
+across plots.
+
+Note panel heights and widths must be set in the theme for this approach to work.
 }
 \examples{
 library(ggplot2)
 library(dplyr)
 
-# Set global theme and panel dimensions
-theme_set(
+set_theme(
   theme_grey() +
-    theme(panel.widths  = rep(unit(50, "mm"), 2)) +
-    theme(panel.heights = rep(unit(75, "mm"), 2))
+    theme(panel.widths  = rep(unit(75, "mm"), 2)) +
+    theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-# 1. Standard vertical bar chart
+set_width(standard = 1)
+
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = species, fill = species)) +
+  ggplot(aes(x = species)) +
   geom_bar(
     width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
   )
 
-# 2. Vertical bar chart with dodging
-# dodge_n = 3 matches the 3 species in the fill aesthetic
+diamonds |>
+  ggplot(aes(x = color)) +
+  geom_bar(
+    width = standardise_width(n = 7, dodge_n = 1, orientation = "x")
+  )
+
+diamonds |>
+  ggplot(aes(y = color)) +
+  geom_bar(
+    width = standardise_width(n = 7, dodge_n = 1, orientation = "y")
+  )
+
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = sex, fill = species)) +
@@ -62,8 +80,6 @@ palmerpenguins::penguins |>
     width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
   )
 
-# 3. Horizontal bar chart with dodging
-# orientation = "y" scales thickness against panel height
 palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   ggplot(aes(y = sex, fill = species)) +
@@ -72,8 +88,6 @@ palmerpenguins::penguins |>
     width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
   )
 
-# 4. Faceted horizontal bars with free scales
-# Using max_n ensures bar thickness is consistent across facets
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
@@ -95,4 +109,7 @@ d |>
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
   coord_cartesian(reverse = "y", clip = "off")
+}
+\seealso{
+\code{\link[=set_width]{set_width()}} to set a global default for \code{standard}.
 }

@@ -7,7 +7,11 @@
 
 <!-- badges: end -->
 
-The goal of ggwidth is to standardise the width of bars (and errorbars).
+The objective of ggwidth is to standardise the appearance of the width
+of bars etc.
+
+Note panel heights and widths must be set in the theme for this approach
+to work.
 
 ## Installation
 
@@ -21,7 +25,6 @@ pak::pak("davidhodge931/ggwidth")
 
 ``` r
 library(ggplot2)
-library(ggwidth)
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -31,25 +34,21 @@ library(dplyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
-library(palmerpenguins)
-#> 
-#> Attaching package: 'palmerpenguins'
-#> The following objects are masked from 'package:datasets':
-#> 
-#>     penguins, penguins_raw
+library(ggwidth)
 
-theme_set(
+set_theme(
   theme_grey() +
     theme(panel.widths  = rep(unit(75, "mm"), 2)) +
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
+
+set_width(standard = 1)
 ```
 
 ``` r
-# 1. Standard vertical bar chart
-penguins |>
+palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = species, fill = species)) +
+  ggplot(aes(x = species)) +
   geom_bar(
     width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
   )
@@ -58,9 +57,27 @@ penguins |>
 <img src="man/figures/README-example-1-1.png" width="100%" />
 
 ``` r
-# 2. Vertical bar chart with dodging
-# dodge_n = 3 matches the 3 species in the fill aesthetic
-penguins |>
+diamonds |>
+  ggplot(aes(x = color)) +
+  geom_bar(
+    width = standardise_width(n = 7, dodge_n = 1, orientation = "x")
+  )
+```
+
+<img src="man/figures/README-example-2-1.png" width="100%" />
+
+``` r
+diamonds |>
+  ggplot(aes(y = color)) +
+  geom_bar(
+    width = standardise_width(n = 7, dodge_n = 1, orientation = "y")
+  )
+```
+
+<img src="man/figures/README-example-3-1.png" width="100%" />
+
+``` r
+palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
@@ -69,12 +86,10 @@ penguins |>
   )
 ```
 
-<img src="man/figures/README-example-2-1.png" width="100%" />
+<img src="man/figures/README-example-4-1.png" width="100%" />
 
 ``` r
-# 3. Horizontal bar chart with dodging
-# orientation = "y" scales thickness against panel height
-penguins |>
+palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
@@ -83,11 +98,9 @@ penguins |>
   )
 ```
 
-<img src="man/figures/README-example-3-1.png" width="100%" />
+<img src="man/figures/README-example-5-1.png" width="100%" />
 
 ``` r
-# 4. Faceted horizontal bars with free scales
-# Using max_n ensures bar thickness is consistent across facets
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
@@ -111,4 +124,4 @@ d |>
   coord_cartesian(reverse = "y", clip = "off")
 ```
 
-<img src="man/figures/README-example-4-1.png" width="100%" />
+<img src="man/figures/README-example-6-1.png" width="100%" />

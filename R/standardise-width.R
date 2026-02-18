@@ -1,25 +1,29 @@
-#' Standardise bar width across plots
+#' Standardise width appearance
 #'
 #' @description
-#' Calculates a ggplot2 bar width that produces consistent physical bar
-#' thickness across plots, orientations, and panel sizes. Set `scale` to
-#' the same value across all calls to ensure bars are visually comparable.
+#' Calculates a ggplot2 width that produces consistent width appearance
+#' across plots.
+#'
+#' Note panel heights and widths must be set in the theme for this approach to work.
 #'
 #' @param n Number of categories in the plot. For faceted plots, use the
-#'   maximum `n` across all facets to keep bar thickness consistent.
+#'   maximum `n` across all facets to keep thickness consistent.
 #' @param dodge_n Number of dodge groups. Must match the number of levels in
 #'   the `fill` or `colour` aesthetic when using `position_dodge()`.
-#' @param orientation Orientation of the bars: `"x"` for vertical bars
-#'   (thickness scaled to panel width), `"y"` for horizontal bars (thickness
-#'   scaled to panel height). Panel heights must be set in absolute units when
-#'   using `"y"`.
-#' @param scale Bar width scale factor. A value of `1` (default) corresponds
-#'   to a standard bar width. Increase to make bars thicker, decrease to make
-#'   them thinner. Use the same value across plots for consistent bar thickness.
+#' @param orientation Orientation: `"x"` for vertical (thickness scaled to
+#'   panel width), `"y"` for horizontal (thickness scaled to panel height).
+#'   Panel heights must be set in absolute units when using `"y"`.
+#' @param standard Numeric. Controls element thickness. A value of `1`
+#'   (default) corresponds to a standard width. Increase to make elements
+#'   thicker, decrease to make them thinner. If `NULL`, uses the value set
+#'   by `set_width()`, falling back to `1`. Use the same value across plots
+#'   for consistent width appearance.
 #' @param ... Reserved for future use. Requires named arguments.
 #'
 #' @return A numeric width value passed to the `width` argument of
-#'   `geom_bar()` or `geom_col()`.
+#'   `geom_bar()`, `geom_col()`, or similar geoms.
+#'
+#' @seealso [set_width()] to set a global default for `standard`.
 #'
 #' @export
 #'
@@ -27,23 +31,33 @@
 #' library(ggplot2)
 #' library(dplyr)
 #'
-#' # Set global theme and panel dimensions
-#' theme_set(
+#' set_theme(
 #'   theme_grey() +
-#'     theme(panel.widths  = rep(unit(50, "mm"), 2)) +
-#'     theme(panel.heights = rep(unit(75, "mm"), 2))
+#'     theme(panel.widths  = rep(unit(75, "mm"), 2)) +
+#'     theme(panel.heights = rep(unit(50, "mm"), 2))
 #' )
 #'
-#' # 1. Standard vertical bar chart
+#' set_width(standard = 1)
+#'
 #' palmerpenguins::penguins |>
 #'   filter(!is.na(sex)) |>
-#'   ggplot(aes(x = species, fill = species)) +
+#'   ggplot(aes(x = species)) +
 #'   geom_bar(
 #'     width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
 #'   )
 #'
-#' # 2. Vertical bar chart with dodging
-#' # dodge_n = 3 matches the 3 species in the fill aesthetic
+#' diamonds |>
+#'   ggplot(aes(x = color)) +
+#'   geom_bar(
+#'     width = standardise_width(n = 7, dodge_n = 1, orientation = "x")
+#'   )
+#'
+#' diamonds |>
+#'   ggplot(aes(y = color)) +
+#'   geom_bar(
+#'     width = standardise_width(n = 7, dodge_n = 1, orientation = "y")
+#'   )
+#'
 #' palmerpenguins::penguins |>
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = sex, fill = species)) +
@@ -52,8 +66,6 @@
 #'     width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
 #'   )
 #'
-#' # 3. Horizontal bar chart with dodging
-#' # orientation = "y" scales thickness against panel height
 #' palmerpenguins::penguins |>
 #'   tidyr::drop_na(sex) |>
 #'   ggplot(aes(y = sex, fill = species)) +
@@ -62,8 +74,6 @@
 #'     width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
 #'   )
 #'
-#' # 4. Faceted horizontal bars with free scales
-#' # Using max_n ensures bar thickness is consistent across facets
 #' d <- tibble::tibble(
 #'   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
 #'                 "South America", "South America"),
@@ -85,17 +95,21 @@
 #'   facet_wrap(~continent, scales = "free_y") +
 #'   scale_y_discrete(continuous.limits = c(1, max_n)) +
 #'   coord_cartesian(reverse = "y", clip = "off")
+
 standardise_width <- function(
     n = NULL,
     dodge_n = 1,
     orientation = "x",
-    scale = 1,
+    standard = NULL,
     ...
 ) {
   if (is.null(n)) rlang::abort("n must be specified")
 
-  # Convert scale to standard
-  standard <- scale / 5
+  # Resolve standard from global option if not supplied, defaulting to 1
+  standard <- standard %||% getOption("ggwidth.standard", default = 1)
+
+  # Convert to internal width
+  standard <- standard / 5
 
   # 1. Get current theme settings
   current_theme  <- ggplot2::theme_get()
@@ -106,13 +120,12 @@ standardise_width <- function(
   current_panel_dim <- if (orientation == "x") panel_widths else panel_heights
   current_panel_mm  <- safe_convert_mm(current_panel_dim)
 
-  if (orientation == "y" && is.na(current_panel_mm)) {
+  panel_widths_mm  <- safe_convert_mm(panel_widths)
+  panel_heights_mm <- safe_convert_mm(panel_heights)
+
+  if (is.na(panel_widths_mm) || is.na(panel_heights_mm)) {
     rlang::abort(
-      message = c(
-        "When orientation = 'y', physical panel heights must be set in the theme.",
-        "i" = "Use theme_set(theme_grey() + theme(panel.heights = list(unit(50, 'mm'))))",
-        "x" = "Without absolute units, horizontal bar thickness cannot be standardised."
-      )
+      message = c("Physical panel widths and heights must both be set in the theme.")
     )
   }
 
@@ -122,8 +135,8 @@ standardise_width <- function(
   ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
   ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
 
-  # 4. Reference n scaled to orientation so that scale = 1 produces
-  #    equivalent physical bar thickness regardless of orientation
+  # 4. Reference n scaled to orientation so that standard = 1 produces
+  #    equivalent physical thickness regardless of orientation
   ref_n_x     <- 3
   ref_dodge_n <- 1
   ref_n <- if (orientation == "x") {
@@ -147,7 +160,7 @@ standardise_width <- function(
   }
 
   if (any(width >= 1)) {
-    rlang::abort("The calculated width must be less than 1. Reduce 'scale' or adjust panel dimensions.")
+    rlang::abort("The calculated width must be less than 1. Reduce 'standard' or adjust panel dimensions.")
   }
 
   return(width)
@@ -167,4 +180,21 @@ safe_convert_mm <- function(x) {
     # Ensure a single numeric value comes back
     if (length(val) > 1) val[1] else val
   }, error = function(e) NA)
+}
+
+#' Set the width standard
+#'
+#' @description
+#' Sets a global default for the `standard` argument in `standardise_width()`.
+#' All subsequent calls to `standardise_width()` will use this value when
+#' `standard = NULL`.
+#'
+#' @param standard Numeric. The default width standard. A value of `1` (default)
+#'   corresponds to a standard width. Increase to make elements thicker,
+#'   decrease to make them thinner.
+#'
+#' @export
+#'
+set_width <- function(standard = 1) {
+  options(ggwidth.standard = standard)
 }
