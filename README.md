@@ -42,7 +42,7 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_width_standard(1)
+set_width_appearance(1)
 ```
 
 ``` r
@@ -50,7 +50,7 @@ palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
-    width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
+    width = standardise_width(n = 3)
   )
 ```
 
@@ -60,7 +60,7 @@ palmerpenguins::penguins |>
 diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(
-    width = standardise_width(n = 7, dodge_n = 1, orientation = "x")
+    width = standardise_width(n = 7)
   )
 ```
 
@@ -70,7 +70,7 @@ diamonds |>
 diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
-    width = standardise_width(n = 7, dodge_n = 1, orientation = "y")
+    width = standardise_width(n = 7, orientation = "y")
   )
 ```
 
@@ -82,7 +82,7 @@ palmerpenguins::penguins |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
+    width = standardise_width(n = 2, n_dodge = 3)
   )
 ```
 
@@ -94,7 +94,7 @@ palmerpenguins::penguins |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
+    width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
   )
 ```
 
@@ -117,7 +117,7 @@ d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
-    width = standardise_width(n = max_n, dodge_n = 1, orientation = "y")
+    width = standardise_width(n = max_n, orientation = "y")
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +

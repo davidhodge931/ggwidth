@@ -2,32 +2,30 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width appearance}
+\title{standardise width to a consistent appearance}
 \usage{
 standardise_width(
   n = NULL,
-  dodge_n = 1,
+  n_dodge = 1,
   orientation = "x",
-  standard = NULL,
+  appearance = NULL,
   ...
 )
 }
 \arguments{
-\item{n}{Number of categories in the plot. For faceted plots, use the
-maximum \code{n} across all facets to keep thickness consistent.}
+\item{n}{Number of categories in the orientation aesthetic (i.e. \code{"x"} or \code{"y"}).
+For faceted plots, use the maximum \code{n} within a facet.}
 
-\item{dodge_n}{Number of dodge groups. Must match the number of levels in
-the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
+\item{n_dodge}{Number of dodge categories. Must match the number of groups in
+the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NA}, then 1.}
 
-\item{orientation}{Orientation: \code{"x"} for vertical (thickness scaled to
-panel width), \code{"y"} for horizontal (thickness scaled to panel height).
-Panel heights must be set in absolute units when using \code{"y"}.}
+\item{orientation}{Orientation: \code{"x"} for vertical (width appearance scaled to
+panel width), \code{"y"} for horizontal (width appearance scaled to panel height).}
 
-\item{standard}{Numeric. Controls element thickness. A value of \code{1}
-(default) corresponds to a standard width. Increase to make elements
-thicker, decrease to make them thinner. If \code{NULL}, uses the value set
-by \code{set_width()}, falling back to \code{1}. Use the same value across plots
-for consistent width appearance.}
+\item{appearance}{Numeric. Multiplicative factor that controls the width appearance.
+A value of \code{1} (default) is the default width appearance. Increase to make
+a wider width appearance, and decrease to make a thinner width appearance.
+If \code{NULL}, uses the value set by \code{set_width_appearance()}, falling back to \code{1}.}
 
 \item{...}{Reserved for future use. Requires named arguments.}
 }
@@ -36,10 +34,8 @@ A numeric width value passed to the \code{width} argument of
 \code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Calculates a ggplot2 width that produces consistent width appearance
-across plots.
-
-Note panel heights and widths must be set in the theme for this approach to work.
+Calculates a ggplot2 width to a width appearance for given panel widths/heights,
+bar numbers, orientation etc.
 }
 \examples{
 library(ggplot2)
@@ -51,25 +47,25 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_width_standard(1)
+set_width_appearance(1)
 
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
-    width = standardise_width(n = 3, dodge_n = 1, orientation = "x")
+    width = get_width_appearance(n = 3, n_dodge = 1, orientation = "x")
   )
 
 diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(
-    width = standardise_width(n = 7, dodge_n = 1, orientation = "x")
+    width = standardise_width(n = 7, n_dodge = 1, orientation = "x")
   )
 
 diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
-    width = standardise_width(n = 7, dodge_n = 1, orientation = "y")
+    width = standardise_width(n = 7, n_dodge = 1, orientation = "y")
   )
 
 palmerpenguins::penguins |>
@@ -77,7 +73,7 @@ palmerpenguins::penguins |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "x")
+    width = standardise_width(n = 2, n_dodge = 3, orientation = "x")
   )
 
 palmerpenguins::penguins |>
@@ -85,7 +81,7 @@ palmerpenguins::penguins |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = standardise_width(n = 2, dodge_n = 3, orientation = "y")
+    width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
   )
 
 d <- tibble::tibble(
@@ -104,12 +100,13 @@ d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
-    width = standardise_width(n = max_n, dodge_n = 1, orientation = "y")
+    width = standardise_width(n = max_n, n_dodge = 1, orientation = "y")
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
   coord_cartesian(reverse = "y", clip = "off")
+
 }
 \seealso{
-\code{\link[=set_width]{set_width()}} to set a global default for \code{standard}.
+\code{\link[=set_width_appearance]{set_width_appearance()}}
 }
