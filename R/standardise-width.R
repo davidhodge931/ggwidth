@@ -96,9 +96,9 @@
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = species)) +
 #'   geom_bar(
-#'     width = standardise_width(n = 3, panel_widths = grid::unit(150, "mm"))
+#'     width = standardise_width(n = 3, panel_widths = grid::unit(160, "mm"))
 #'   ) +
-#'   theme(panel.widths = rep(grid::unit(150, "mm"), 2))
+#'   theme(panel.widths = rep(grid::unit(160, "mm"), 2))
 #'
 standardise_width <- function(
     n = NULL,

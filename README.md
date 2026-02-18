@@ -131,9 +131,9 @@ palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
-    width = standardise_width(n = 3, panel_widths = unit(100, "mm")),
+    width = standardise_width(n = 3, panel_widths = unit(160, "mm")),
   ) +
-  theme(panel.widths  = unit(100, "mm"))
+  theme(panel.widths  = unit(160, "mm"))
 ```
 
 <img src="man/figures/README-example-7-1.png" width="100%" />
