@@ -20,7 +20,11 @@ knitr::opts_chunk$set(
 
 The objective of ggwidth is to standardise the appearance of the width of bars etc.
 
-Note panel heights and widths must be set in the theme for this approach to work.
+Note this function:
+
+* requires a set theme with panel widths and heights specified
+* requires `"x"` orientation plots to have a x discrete scale, and `"y"` orientation plots to have a y discrete scale.
+
 
 ## Installation
 

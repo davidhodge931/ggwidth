@@ -43,6 +43,12 @@ A numeric width value passed to the \code{width} argument of
 }
 \description{
 Get a ggplot2 width for a plot that will appear consistent across plots.
+
+Note this function:
+\itemize{
+\item requires a set theme with panel widths and heights specified
+\item requires \code{"x"} orientation plots to have a x discrete scale, and \code{"y"} orientation plots to have a y discrete scale.
+}
 }
 \examples{
 library(ggplot2)

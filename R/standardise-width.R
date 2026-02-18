@@ -3,6 +3,11 @@
 #' @description
 #' Get a ggplot2 width for a plot that will appear consistent across plots.
 #'
+#' Note this function:
+#'
+#' * requires a set theme with panel widths and heights specified
+#' * requires `"x"` orientation plots to have a x discrete scale, and `"y"` orientation plots to have a y discrete scale.
+#'
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in
@@ -26,7 +31,6 @@
 #'
 #' @seealso [set_width()]
 #'
-#' @examples
 #' @examples
 #' library(ggplot2)
 #' library(dplyr)
