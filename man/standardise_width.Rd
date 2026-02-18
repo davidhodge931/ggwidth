@@ -2,13 +2,13 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width to a consistent appearance}
+\title{Standardise width to a consistent scale}
 \usage{
 standardise_width(
   n = NULL,
   n_dodge = 1,
   orientation = "x",
-  appearance = NULL,
+  scale = NULL,
   panel_widths = NULL,
   panel_heights = NULL,
   ...
@@ -24,9 +24,9 @@ the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. I
 \item{orientation}{Orientation: \code{"x"} for vertical (width appearance scaled to
 panel width), \code{"y"} for horizontal (width appearance scaled to panel height).}
 
-\item{appearance}{Numeric. Multiplicative factor that controls the width appearance.
-A value of \code{1} (default) is the default width appearance. Increase to make
-a wider width appearance, and decrease to make a thinner width appearance.
+\item{scale}{Numeric. Multiplicative factor that controls the width scale.
+A value of \code{1} (default) is the default width scale. Increase to make
+a wider width scale, and decrease to make a thinner width scale.
 If \code{NULL}, uses the value set by \code{set_width()}, falling back to \code{1}.}
 
 \item{panel_widths}{A \code{grid::unit} object specifying the panel width. If \code{NULL}
@@ -59,7 +59,7 @@ set_theme(
     theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
 )
-set_width(appearance = 1)
+set_width(scale = 1)
 
 # Example 1: 3 species, vertical bars
 palmerpenguins::penguins |>

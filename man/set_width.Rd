@@ -2,19 +2,19 @@
 % Please edit documentation in R/standardise-width.R
 \name{set_width}
 \alias{set_width}
-\title{Set a global width appearance}
+\title{Set a global width scale}
 \usage{
-set_width(appearance = 1)
+set_width(scale = 1)
 }
 \arguments{
-\item{appearance}{Numeric. A value of \code{1} (default) corresponds to a default
-width appearance. Increase to make a wider width appearance, and decrease
-to make a thinner width appearance.}
+\item{scale}{Numeric. A value of \code{1} (default) corresponds to a default
+width scale. Increase to make a wider width scale, and decrease
+to make a thinner width scale.}
 }
 \description{
-Sets a global default for the \code{appearance} argument in \code{standardise_width()}.
+Sets a global default for the \code{scale} argument in \code{standardise_width()}.
 All subsequent calls to \code{standardise_width()} will use this value when
-\code{appearance = NULL}.
+\code{scale = NULL}.
 }
 \examples{
 set_width(1)

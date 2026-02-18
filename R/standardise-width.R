@@ -1,4 +1,4 @@
-#' Standardise width to a consistent appearance
+#' Standardise width to a consistent scale
 #'
 #' @description
 #' Get a ggplot2 width for a plot that will appear consistent across plots.
@@ -14,9 +14,9 @@
 #'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NA`, then 1.
 #' @param orientation Orientation: `"x"` for vertical (width appearance scaled to
 #'   panel width), `"y"` for horizontal (width appearance scaled to panel height).
-#' @param appearance Numeric. Multiplicative factor that controls the width appearance.
-#'   A value of `1` (default) is the default width appearance. Increase to make
-#'   a wider width appearance, and decrease to make a thinner width appearance.
+#' @param scale Numeric. Multiplicative factor that controls the width scale.
+#'   A value of `1` (default) is the default width scale. Increase to make
+#'   a wider width scale, and decrease to make a thinner width scale.
 #'   If `NULL`, uses the value set by `set_width()`, falling back to `1`.
 #' @param panel_widths A `grid::unit` object specifying the panel width. If `NULL`
 #'   (default), uses the value set in the current theme.
@@ -40,7 +40,7 @@
 #'     theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
 #'     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
 #' )
-#' set_width(appearance = 1)
+#' set_width(scale = 1)
 #'
 #' # Example 1: 3 species, vertical bars
 #' palmerpenguins::penguins |>
@@ -108,7 +108,7 @@ standardise_width <- function(
     n = NULL,
     n_dodge = 1,
     orientation = "x",
-    appearance = NULL,
+    scale = NULL,
     panel_widths = NULL,
     panel_heights = NULL,
     ...
@@ -122,11 +122,11 @@ standardise_width <- function(
   if (!is.null(panel_heights) && !is_unit(panel_heights))
     rlang::abort("`panel_heights` must be a `grid::unit` object.")
 
-  # Resolve appearance from global option if not supplied, defaulting to 1
-  appearance <- appearance %||% getOption("ggwidth.appearance", default = 1)
+  # Resolve scale from global option if not supplied, defaulting to 1
+  scale <- scale %||% getOption("ggwidth.scale", default = 1)
 
   # Convert to internal width
-  appearance <- appearance / 7.5
+  scale <- scale / 7.5
 
   # 1. Get current theme settings, overriding with supplied dims if provided
   current_theme <- ggplot2::theme_get()
@@ -162,7 +162,7 @@ standardise_width <- function(
   }
 
   # 5. Calculation
-  base_width <- (n / ref_n) * appearance
+  base_width <- (n / ref_n) * scale
   width <- if (n_dodge > 1 || ref_n_dodge > 1) {
     base_width * (n_dodge / ref_n_dodge)
   } else {
@@ -176,7 +176,7 @@ standardise_width <- function(
   }
 
   if (any(width >= 1)) {
-    rlang::abort("The calculated width must be less than 1. Reduce 'appearance' or adjust panel dimensions.")
+    rlang::abort("The calculated width must be less than 1. Reduce 'scale' or adjust panel dimensions.")
   }
 
   return(width)
@@ -195,16 +195,16 @@ safe_convert_mm <- function(x) {
   }, error = function(e) NA)
 }
 
-#' Set a global width appearance
+#' Set a global width scale
 #'
 #' @description
-#' Sets a global default for the `appearance` argument in `standardise_width()`.
+#' Sets a global default for the `scale` argument in `standardise_width()`.
 #' All subsequent calls to `standardise_width()` will use this value when
-#' `appearance = NULL`.
+#' `scale = NULL`.
 #'
-#' @param appearance Numeric. A value of `1` (default) corresponds to a default
-#'   width appearance. Increase to make a wider width appearance, and decrease
-#'   to make a thinner width appearance.
+#' @param scale Numeric. A value of `1` (default) corresponds to a default
+#'   width scale. Increase to make a wider width scale, and decrease
+#'   to make a thinner width scale.
 #'
 #' @seealso [standardise_width()]
 #'
@@ -214,6 +214,6 @@ safe_convert_mm <- function(x) {
 #' set_width(1)
 #' set_width(0.75)
 #' set_width(1.33)
-set_width <- function(appearance = 1) {
-  options(ggwidth.appearance = appearance)
+set_width <- function(scale = 1) {
+  options(ggwidth.scale = scale)
 }
