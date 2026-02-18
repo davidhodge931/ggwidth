@@ -9,6 +9,8 @@ standardise_width(
   n_dodge = 1,
   orientation = "x",
   appearance = NULL,
+  panel_widths = NULL,
+  panel_heights = NULL,
   ...
 )
 }
@@ -27,6 +29,12 @@ A value of \code{1} (default) is the default width appearance. Increase to make
 a wider width appearance, and decrease to make a thinner width appearance.
 If \code{NULL}, uses the value set by \code{set_width()}, falling back to \code{1}.}
 
+\item{panel_widths}{A \code{grid::unit} object specifying the panel width. If \code{NULL}
+(default), uses the value set in the current theme.}
+
+\item{panel_heights}{A \code{grid::unit} object specifying the panel height. If \code{NULL}
+(default), uses the value set in the current theme.}
+
 \item{...}{Reserved for future use. Requires named arguments.}
 }
 \value{
@@ -35,6 +43,80 @@ A numeric width value passed to the \code{width} argument of
 }
 \description{
 Get a ggplot2 width for a plot that will appear consistent across plots.
+}
+\examples{
+library(ggplot2)
+library(dplyr)
+
+set_theme(
+  theme_grey() +
+    theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
+    theme(panel.heights = rep(grid::unit(50, "mm"), 2))
+)
+set_width(appearance = 1)
+
+# Example 1: 3 species, vertical bars
+palmerpenguins::penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(x = species)) +
+  geom_bar(width = standardise_width(n = 3))
+
+# Example 2: 7 categories, vertical bars
+diamonds |>
+  ggplot(aes(x = color)) +
+  geom_bar(width = standardise_width(n = 7))
+
+# Example 3: 7 categories, horizontal bars
+diamonds |>
+  ggplot(aes(y = color)) +
+  geom_bar(width = standardise_width(n = 7, orientation = "y"))
+
+# Example 4: Dodged bars, vertical
+palmerpenguins::penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(x = sex, fill = species)) +
+  geom_bar(
+    position = position_dodge(),
+    width = standardise_width(n = 2, n_dodge = 3)
+  )
+
+# Example 5: Dodged bars, horizontal
+palmerpenguins::penguins |>
+  tidyr::drop_na(sex) |>
+  ggplot(aes(y = sex, fill = species)) +
+  geom_bar(
+    position = position_dodge(),
+    width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
+  )
+
+# Example 6: Faceted plot using max n across facets
+d <- tibble::tibble(
+  continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
+                "South America", "South America"),
+  country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+  value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
+)
+max_n <- d |>
+  count(continent) |>
+  pull(n) |>
+  max()
+d |>
+  mutate(country = forcats::fct_rev(country)) |>
+  ggplot(aes(y = country, x = value)) +
+  geom_col(width = standardise_width(n = max_n, orientation = "y")) +
+  facet_wrap(~continent, scales = "free_y") +
+  scale_y_discrete(continuous.limits = c(1, max_n)) +
+  coord_cartesian(reverse = "y", clip = "off")
+
+# Example 7: Overriding panel_widths for a wider panel
+palmerpenguins::penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(x = species)) +
+  geom_bar(
+    width = standardise_width(n = 3, panel_widths = grid::unit(150, "mm"))
+  ) +
+  theme(panel.widths = rep(grid::unit(150, "mm"), 2))
+
 }
 \seealso{
 \code{\link[=set_width]{set_width()}}

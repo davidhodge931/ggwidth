@@ -13,6 +13,10 @@
 #'   A value of `1` (default) is the default width appearance. Increase to make
 #'   a wider width appearance, and decrease to make a thinner width appearance.
 #'   If `NULL`, uses the value set by `set_width()`, falling back to `1`.
+#' @param panel_widths A `grid::unit` object specifying the panel width. If `NULL`
+#'   (default), uses the value set in the current theme.
+#' @param panel_heights A `grid::unit` object specifying the panel height. If `NULL`
+#'   (default), uses the value set in the current theme.
 #' @param ... Reserved for future use. Requires named arguments.
 #'
 #' @return A numeric width value passed to the `width` argument of
@@ -22,14 +26,97 @@
 #'
 #' @seealso [set_width()]
 #'
+#' @examples
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#'
+#' set_theme(
+#'   theme_grey() +
+#'     theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
+#'     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
+#' )
+#' set_width(appearance = 1)
+#'
+#' # Example 1: 3 species, vertical bars
+#' palmerpenguins::penguins |>
+#'   filter(!is.na(sex)) |>
+#'   ggplot(aes(x = species)) +
+#'   geom_bar(width = standardise_width(n = 3))
+#'
+#' # Example 2: 7 categories, vertical bars
+#' diamonds |>
+#'   ggplot(aes(x = color)) +
+#'   geom_bar(width = standardise_width(n = 7))
+#'
+#' # Example 3: 7 categories, horizontal bars
+#' diamonds |>
+#'   ggplot(aes(y = color)) +
+#'   geom_bar(width = standardise_width(n = 7, orientation = "y"))
+#'
+#' # Example 4: Dodged bars, vertical
+#' palmerpenguins::penguins |>
+#'   filter(!is.na(sex)) |>
+#'   ggplot(aes(x = sex, fill = species)) +
+#'   geom_bar(
+#'     position = position_dodge(),
+#'     width = standardise_width(n = 2, n_dodge = 3)
+#'   )
+#'
+#' # Example 5: Dodged bars, horizontal
+#' palmerpenguins::penguins |>
+#'   tidyr::drop_na(sex) |>
+#'   ggplot(aes(y = sex, fill = species)) +
+#'   geom_bar(
+#'     position = position_dodge(),
+#'     width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
+#'   )
+#'
+#' # Example 6: Faceted plot using max n across facets
+#' d <- tibble::tibble(
+#'   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
+#'                 "South America", "South America"),
+#'   country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
+#'   value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
+#' )
+#' max_n <- d |>
+#'   count(continent) |>
+#'   pull(n) |>
+#'   max()
+#' d |>
+#'   mutate(country = forcats::fct_rev(country)) |>
+#'   ggplot(aes(y = country, x = value)) +
+#'   geom_col(width = standardise_width(n = max_n, orientation = "y")) +
+#'   facet_wrap(~continent, scales = "free_y") +
+#'   scale_y_discrete(continuous.limits = c(1, max_n)) +
+#'   coord_cartesian(reverse = "y", clip = "off")
+#'
+#' # Example 7: Overriding panel_widths for a wider panel
+#' palmerpenguins::penguins |>
+#'   filter(!is.na(sex)) |>
+#'   ggplot(aes(x = species)) +
+#'   geom_bar(
+#'     width = standardise_width(n = 3, panel_widths = grid::unit(150, "mm"))
+#'   ) +
+#'   theme(panel.widths = rep(grid::unit(150, "mm"), 2))
+#'
 standardise_width <- function(
     n = NULL,
     n_dodge = 1,
     orientation = "x",
     appearance = NULL,
+    panel_widths = NULL,
+    panel_heights = NULL,
     ...
 ) {
   if (is.null(n)) rlang::abort("n must be specified")
+
+  is_unit <- function(x) inherits(x, "unit")
+
+  if (!is.null(panel_widths) && !is_unit(panel_widths))
+    rlang::abort("`panel_widths` must be a `grid::unit` object.")
+  if (!is.null(panel_heights) && !is_unit(panel_heights))
+    rlang::abort("`panel_heights` must be a `grid::unit` object.")
 
   # Resolve appearance from global option if not supplied, defaulting to 1
   appearance <- appearance %||% getOption("ggwidth.appearance", default = 1)
@@ -37,10 +124,10 @@ standardise_width <- function(
   # Convert to internal width
   appearance <- appearance / 7.5
 
-  # 1. Get current theme settings
-  current_theme  <- ggplot2::theme_get()
-  panel_widths   <- current_theme$panel.widths
-  panel_heights  <- current_theme$panel.heights
+  # 1. Get current theme settings, overriding with supplied dims if provided
+  current_theme <- ggplot2::theme_get()
+  panel_widths  <- panel_widths  %||% current_theme$panel.widths
+  panel_heights <- panel_heights %||% current_theme$panel.heights
 
   # 2. Validation and Conversion
   current_panel_dim <- if (orientation == "x") panel_widths else panel_heights
