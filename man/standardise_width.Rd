@@ -51,7 +51,7 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_width(standard = 1)
+set_width_standard(1)
 
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>

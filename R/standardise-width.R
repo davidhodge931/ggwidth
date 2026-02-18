@@ -37,7 +37,7 @@
 #'     theme(panel.heights = rep(unit(50, "mm"), 2))
 #' )
 #'
-#' set_width(standard = 1)
+#' set_width_standard(1)
 #'
 #' palmerpenguins::penguins |>
 #'   filter(!is.na(sex)) |>
@@ -189,12 +189,17 @@ safe_convert_mm <- function(x) {
 #' All subsequent calls to `standardise_width()` will use this value when
 #' `standard = NULL`.
 #'
-#' @param standard Numeric. The default width standard. A value of `1` (default)
-#'   corresponds to a standard width. Increase to make elements thicker,
-#'   decrease to make them thinner.
+#' @param x Numeric. A value of `1` (default) corresponds to a standard width.
+#'   Increase to make elements thicker, decrease to make them thinner.
+#'
+#' @seealso [standardise_width()]
 #'
 #' @export
 #'
-set_width <- function(standard = 1) {
-  options(ggwidth.standard = standard)
+#' @examples
+#' set_width_standard(1)
+#' set_width_standard(0.75)
+#' set_width_standard(1.33)
+set_width_standard <- function(x) {
+  options(ggwidth.width_standard = x)
 }
