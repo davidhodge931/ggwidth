@@ -47,7 +47,8 @@ Get a ggplot2 width for a plot that will appear consistent across plots.
 Note this function:
 \itemize{
 \item requires a set theme with panel widths and heights specified
-\item requires \code{"x"} orientation plots to have a x discrete equiwidth, and \code{"y"} orientation plots to have a y discrete equiwidth.
+\item requires \code{"x"} orientation plots to have a x discrete scale with default expand
+\item requires \code{"y"} orientation plots to have a y discrete scale with default expand.
 }
 }
 \examples{

@@ -13,8 +13,10 @@ of bars etc.
 Note this function:
 
 - requires a set theme with panel widths and heights specified
-- requires `"x"` orientation plots to have a x discrete scale, and `"y"`
-  orientation plots to have a y discrete scale.
+- requires `"x"` orientation plots to have a x discrete scale with
+  default expand
+- requires `"y"` orientation plots to have a y discrete scale with
+  default expand.
 
 ## Installation
 
