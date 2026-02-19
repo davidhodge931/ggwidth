@@ -57,47 +57,50 @@ library(dplyr)
 
 set_theme(
   theme_grey() +
-    theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
-    theme(panel.heights = rep(grid::unit(50, "mm"), 2))
+    theme(panel.widths  = rep(unit(75, "mm"), 2)) +
+    theme(panel.heights = rep(unit(50, "mm"), 2))
 )
+set_equiwidth(1)
 
-set_equiwidth(equiwidth = 1)
-
-# Example 1: 3 species, vertical bars
+# Example 1: Basic bar chart with 3 species (x-axis)
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
-  geom_bar(width = get_width(n = 3))
+  geom_bar(
+    width = get_width(n = 3),
+  )
 
-# Example 2: 7 categories, vertical bars
+# Example 2: Bar chart with 7 diamond colors (x-axis)
 diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(width = get_width(n = 7))
 
-# Example 3: 7 categories, horizontal bars
+# Example 3: Horizontal bar chart with 7 diamond colors (y-axis)
 diamonds |>
   ggplot(aes(y = color)) +
-  geom_bar(width = get_width(n = 7, orientation = "y"))
+  geom_bar(
+    width = get_width(n = 7, orientation = "y"),
+  )
 
-# Example 4: Dodged bars, vertical
+# Example 4: Dodged bar chart by sex, filled by species (x-axis)
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3)
+    width = get_width(n = 2, n_dodge = 3),
   )
 
-# Example 5: Dodged bars, horizontal
+# Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
 palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3, orientation = "y")
+    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
   )
 
-# Example 6: Faceted plot using max n across facets
+# Example 6: Faceted horizontal bar chart with free y scales
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
@@ -111,19 +114,21 @@ max_n <- d |>
 d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
-  geom_col(width = get_width(n = max_n, orientation = "y")) +
+  geom_col(
+    width = get_width(n = max_n, orientation = "y"),
+  ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
   coord_cartesian(reverse = "y", clip = "off")
 
-# Example 7: Overriding panel_widths for a wider panel
+# Example 7: Bar chart with a custom panel width override
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
-    width = get_width(n = 3, panel_widths = grid::unit(160, "mm"))
+    width = get_width(n = 3, panel_widths = unit(160, "mm")),
   ) +
-  theme(panel.widths = rep(grid::unit(160, "mm"), 2))
+  theme(panel.widths = unit(160, "mm"))
 
 }
 \seealso{
