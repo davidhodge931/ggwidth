@@ -1,4 +1,4 @@
-#' Standardise width to a consistent equiwidth
+#' Standardise width to appear visually consistent
 #'
 #' @description
 #' Get a ggplot2 width for a plot that will appear consistent across plots.
@@ -8,6 +8,7 @@
 #' * requires a set theme with panel widths and heights specified
 #' * requires `"x"` orientation plots to have a x discrete equiwidth, and `"y"` orientation plots to have a y discrete equiwidth.
 #'
+#' @param ... Reserved for future use. Requires named arguments.
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in
@@ -22,7 +23,6 @@
 #'   (default), uses the value set in the current theme.
 #' @param panel_heights A `grid::unit` object specifying the panel height. If `NULL`
 #'   (default), uses the value set in the current theme.
-#' @param ... Reserved for future use. Requires named arguments.
 #'
 #' @return A numeric width value passed to the `width` argument of
 #'   `geom_bar()`, `geom_col()`, or similar geoms.
@@ -106,13 +106,13 @@
 #'   theme(panel.widths = rep(grid::unit(160, "mm"), 2))
 #'
 standardise_width <- function(
+    ...,
     n = NULL,
     n_dodge = 1,
     orientation = "x",
     equiwidth = NULL,
     panel_widths = NULL,
-    panel_heights = NULL,
-    ...
+    panel_heights = NULL
 ) {
   if (is.null(n)) rlang::abort("n must be specified")
 

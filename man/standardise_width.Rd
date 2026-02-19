@@ -2,19 +2,21 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width to a consistent equiwidth}
+\title{Standardise width to appear visually consistent}
 \usage{
 standardise_width(
+  ...,
   n = NULL,
   n_dodge = 1,
   orientation = "x",
   equiwidth = NULL,
   panel_widths = NULL,
-  panel_heights = NULL,
-  ...
+  panel_heights = NULL
 )
 }
 \arguments{
+\item{...}{Reserved for future use. Requires named arguments.}
+
 \item{n}{Number of categories in the orientation aesthetic (i.e. \code{"x"} or \code{"y"}).
 For faceted plots, use the maximum \code{n} within a facet.}
 
@@ -34,8 +36,6 @@ falling back to \code{1}.}
 
 \item{panel_heights}{A \code{grid::unit} object specifying the panel height. If \code{NULL}
 (default), uses the value set in the current theme.}
-
-\item{...}{Reserved for future use. Requires named arguments.}
 }
 \value{
 A numeric width value passed to the \code{width} argument of

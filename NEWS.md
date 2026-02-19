@@ -1,3 +1,3 @@
-# ggwidth (development version)
+# ggwidth 0.0.1
 
-* Initial CRAN submission.
+* Initial release.
