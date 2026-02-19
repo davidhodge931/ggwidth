@@ -45,7 +45,7 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_equiwidth(equiwidth = 1)
+set_equiwidth(1)
 ```
 
 ``` r
