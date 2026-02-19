@@ -59,6 +59,7 @@ set_theme(
     theme(panel.widths  = rep(grid::unit(75, "mm"), 2)) +
     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
 )
+
 set_width(scale = 1)
 
 # Example 1: 3 species, vertical bars
