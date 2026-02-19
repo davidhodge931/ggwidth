@@ -48,17 +48,17 @@
 #' palmerpenguins::penguins |>
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = species)) +
-#'   geom_bar(width = standardise_width(n = 3))
+#'   geom_bar(width = get_width(n = 3))
 #'
 #' # Example 2: 7 categories, vertical bars
 #' diamonds |>
 #'   ggplot(aes(x = color)) +
-#'   geom_bar(width = standardise_width(n = 7))
+#'   geom_bar(width = get_width(n = 7))
 #'
 #' # Example 3: 7 categories, horizontal bars
 #' diamonds |>
 #'   ggplot(aes(y = color)) +
-#'   geom_bar(width = standardise_width(n = 7, orientation = "y"))
+#'   geom_bar(width = get_width(n = 7, orientation = "y"))
 #'
 #' # Example 4: Dodged bars, vertical
 #' palmerpenguins::penguins |>
@@ -66,7 +66,7 @@
 #'   ggplot(aes(x = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = standardise_width(n = 2, n_dodge = 3)
+#'     width = get_width(n = 2, n_dodge = 3)
 #'   )
 #'
 #' # Example 5: Dodged bars, horizontal
@@ -75,7 +75,7 @@
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = standardise_width(n = 2, n_dodge = 3, orientation = "y")
+#'     width = get_width(n = 2, n_dodge = 3, orientation = "y")
 #'   )
 #'
 #' # Example 6: Faceted plot using max n across facets
@@ -92,7 +92,7 @@
 #' d |>
 #'   mutate(country = forcats::fct_rev(country)) |>
 #'   ggplot(aes(y = country, x = value)) +
-#'   geom_col(width = standardise_width(n = max_n, orientation = "y")) +
+#'   geom_col(width = get_width(n = max_n, orientation = "y")) +
 #'   facet_wrap(~continent, scales = "free_y") +
 #'   scale_y_discrete(continuous.limits = c(1, max_n)) +
 #'   coord_cartesian(reverse = "y", clip = "off")
@@ -102,11 +102,11 @@
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = species)) +
 #'   geom_bar(
-#'     width = standardise_width(n = 3, panel_widths = grid::unit(160, "mm"))
+#'     width = get_width(n = 3, panel_widths = grid::unit(160, "mm"))
 #'   ) +
 #'   theme(panel.widths = rep(grid::unit(160, "mm"), 2))
 #'
-standardise_width <- function(
+get_width <- function(
     ...,
     n = NULL,
     n_dodge = 1,
@@ -193,28 +193,4 @@ safe_convert_mm <- function(x) {
     val <- grid::convertUnit(u, "mm", valueOnly = TRUE)
     if (length(val) > 1) val[1] else val
   }, error = function(e) NA)
-}
-
-#' Set a global width equiwidth
-#'
-#' @description
-#' Sets a global default for the `equiwidth` argument in `standardise_width()`.
-#' All subsequent calls to `standardise_width()` will use this value when
-#' `equiwidth = NULL` falling back to 1.
-#'
-#' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
-#'   A value of `1` (default) is the default. Increase to make a wider appearance, and
-#'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
-#'   falling back to `1`.
-#'
-#' @seealso [standardise_width()]
-#'
-#' @export
-#'
-#' @examples
-#' set_equiwidth(1)
-#' set_equiwidth(0.75)
-#' set_equiwidth(1.33)
-set_equiwidth <- function(equiwidth = 1) {
-  options(ggwidth.equiwidth = equiwidth)
 }
