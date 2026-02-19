@@ -114,14 +114,14 @@ standardise_width <- function(
     panel_widths = NULL,
     panel_heights = NULL
 ) {
-  if (is.null(n)) rlang::abort("n must be specified")
+  if (is.null(n)) stop("n must be specified")
 
   is_unit <- function(x) inherits(x, "unit")
 
   if (!is.null(panel_widths) && !is_unit(panel_widths))
-    rlang::abort("`panel_widths` must be a `grid::unit` object.")
+    stop("`panel_widths` must be a `grid::unit` object.")
   if (!is.null(panel_heights) && !is_unit(panel_heights))
-    rlang::abort("`panel_heights` must be a `grid::unit` object.")
+    stop("`panel_heights` must be a `grid::unit` object.")
 
   # Resolve equiwidth from global option if not supplied, defaulting to 1
   equiwidth <- equiwidth %||% getOption("ggwidth.equiwidth", default = 1)
@@ -142,9 +142,7 @@ standardise_width <- function(
   panel_heights_mm <- safe_convert_mm(panel_heights)
 
   if (is.na(panel_widths_mm) || is.na(panel_heights_mm)) {
-    rlang::abort(
-      message = c("Physical panel widths and heights must both be set in the theme.")
-    )
+    stop("Physical panel widths and heights must both be set in the theme.")
   }
 
   # 3. Reference panel dimensions
@@ -177,7 +175,7 @@ standardise_width <- function(
   }
 
   if (any(width >= 1)) {
-    rlang::abort("The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions.")
+    stop("The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions.")
   }
 
   return(width)
