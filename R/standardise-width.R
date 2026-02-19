@@ -1,4 +1,4 @@
-#' Standardise width to a consistent scale
+#' Standardise width to a consistent equiwidth
 #'
 #' @description
 #' Get a ggplot2 width for a plot that will appear consistent across plots.
@@ -6,18 +6,18 @@
 #' Note this function:
 #'
 #' * requires a set theme with panel widths and heights specified
-#' * requires `"x"` orientation plots to have a x discrete scale, and `"y"` orientation plots to have a y discrete scale.
+#' * requires `"x"` orientation plots to have a x discrete equiwidth, and `"y"` orientation plots to have a y discrete equiwidth.
 #'
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in
 #'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NA`, then 1.
-#' @param orientation Orientation: `"x"` for vertical (width appearance scaled to
-#'   panel width), `"y"` for horizontal (width appearance scaled to panel height).
-#' @param scale Numeric. Multiplicative factor that controls the width scale.
-#'   A value of `1` (default) is the default width scale. Increase to make
-#'   a wider width scale, and decrease to make a thinner width scale.
-#'   If `NULL`, uses the value set by `set_width()`, falling back to `1`.
+#' @param orientation Orientation: `"x"` for vertical (width appearance equiwidthd to
+#'   panel width), `"y"` for horizontal (width appearance equiwidthd to panel height).
+#' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
+#'   A value of `1` (default) is the default. Increase to make a wider appearance, and
+#'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
+#'   falling back to `1`.
 #' @param panel_widths A `grid::unit` object specifying the panel width. If `NULL`
 #'   (default), uses the value set in the current theme.
 #' @param panel_heights A `grid::unit` object specifying the panel height. If `NULL`
@@ -29,7 +29,7 @@
 #'
 #' @export
 #'
-#' @seealso [set_width()]
+#' @seealso [set_equiwidth()]
 #'
 #' @examples
 #' library(ggplot2)
@@ -41,7 +41,7 @@
 #'     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
 #' )
 #'
-#' set_width(scale = 1)
+#' set_equiwidth(equiwidth = 1)
 #'
 #' # Example 1: 3 species, vertical bars
 #' palmerpenguins::penguins |>
@@ -109,7 +109,7 @@ standardise_width <- function(
     n = NULL,
     n_dodge = 1,
     orientation = "x",
-    scale = NULL,
+    equiwidth = NULL,
     panel_widths = NULL,
     panel_heights = NULL,
     ...
@@ -123,11 +123,11 @@ standardise_width <- function(
   if (!is.null(panel_heights) && !is_unit(panel_heights))
     rlang::abort("`panel_heights` must be a `grid::unit` object.")
 
-  # Resolve scale from global option if not supplied, defaulting to 1
-  scale <- scale %||% getOption("ggwidth.scale", default = 1)
+  # Resolve equiwidth from global option if not supplied, defaulting to 1
+  equiwidth <- equiwidth %||% getOption("ggwidth.equiwidth", default = 1)
 
   # Convert to internal width
-  scale <- scale / 7.5
+  equiwidth <- equiwidth / 7.5
 
   # 1. Get current theme settings, overriding with supplied dims if provided
   current_theme <- ggplot2::theme_get()
@@ -153,7 +153,7 @@ standardise_width <- function(
   ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
   ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
 
-  # 4. Reference n scaled to orientation
+  # 4. Reference n equiwidthd to orientation
   ref_n_x     <- 3
   ref_n_dodge <- 1
   ref_n <- if (orientation == "x") {
@@ -163,7 +163,7 @@ standardise_width <- function(
   }
 
   # 5. Calculation
-  base_width <- (n / ref_n) * scale
+  base_width <- (n / ref_n) * equiwidth
   width <- if (n_dodge > 1 || ref_n_dodge > 1) {
     base_width * (n_dodge / ref_n_dodge)
   } else {
@@ -177,7 +177,7 @@ standardise_width <- function(
   }
 
   if (any(width >= 1)) {
-    rlang::abort("The calculated width must be less than 1. Reduce 'scale' or adjust panel dimensions.")
+    rlang::abort("The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions.")
   }
 
   return(width)
@@ -196,25 +196,26 @@ safe_convert_mm <- function(x) {
   }, error = function(e) NA)
 }
 
-#' Set a global width scale
+#' Set a global width equiwidth
 #'
 #' @description
-#' Sets a global default for the `scale` argument in `standardise_width()`.
+#' Sets a global default for the `equiwidth` argument in `standardise_width()`.
 #' All subsequent calls to `standardise_width()` will use this value when
-#' `scale = NULL`.
+#' `equiwidth = NULL` falling back to 1.
 #'
-#' @param scale Numeric. A value of `1` (default) corresponds to a default
-#'   width scale. Increase to make a wider width scale, and decrease
-#'   to make a thinner width scale.
+#' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
+#'   A value of `1` (default) is the default. Increase to make a wider appearance, and
+#'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
+#'   falling back to `1`.
 #'
 #' @seealso [standardise_width()]
 #'
 #' @export
 #'
 #' @examples
-#' set_width(1)
-#' set_width(0.75)
-#' set_width(1.33)
-set_width <- function(scale = 1) {
-  options(ggwidth.scale = scale)
+#' set_equiwidth(1)
+#' set_equiwidth(0.75)
+#' set_equiwidth(1.33)
+set_equiwidth <- function(equiwidth = 1) {
+  options(ggwidth.equiwidth = equiwidth)
 }

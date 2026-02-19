@@ -2,13 +2,13 @@
 % Please edit documentation in R/standardise-width.R
 \name{standardise_width}
 \alias{standardise_width}
-\title{Standardise width to a consistent scale}
+\title{Standardise width to a consistent equiwidth}
 \usage{
 standardise_width(
   n = NULL,
   n_dodge = 1,
   orientation = "x",
-  scale = NULL,
+  equiwidth = NULL,
   panel_widths = NULL,
   panel_heights = NULL,
   ...
@@ -21,13 +21,13 @@ For faceted plots, use the maximum \code{n} within a facet.}
 \item{n_dodge}{Number of dodge categories. Must match the number of groups in
 the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NA}, then 1.}
 
-\item{orientation}{Orientation: \code{"x"} for vertical (width appearance scaled to
-panel width), \code{"y"} for horizontal (width appearance scaled to panel height).}
+\item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidthd to
+panel width), \code{"y"} for horizontal (width appearance equiwidthd to panel height).}
 
-\item{scale}{Numeric. Multiplicative factor that controls the width scale.
-A value of \code{1} (default) is the default width scale. Increase to make
-a wider width scale, and decrease to make a thinner width scale.
-If \code{NULL}, uses the value set by \code{set_width()}, falling back to \code{1}.}
+\item{equiwidth}{Numeric. Multiplicative factor that controls the width appearance.
+A value of \code{1} (default) is the default. Increase to make a wider appearance, and
+decrease to make a thinner appearance. If \code{NULL}, uses the value set by \code{set_equiwidth()},
+falling back to \code{1}.}
 
 \item{panel_widths}{A \code{grid::unit} object specifying the panel width. If \code{NULL}
 (default), uses the value set in the current theme.}
@@ -47,7 +47,7 @@ Get a ggplot2 width for a plot that will appear consistent across plots.
 Note this function:
 \itemize{
 \item requires a set theme with panel widths and heights specified
-\item requires \code{"x"} orientation plots to have a x discrete scale, and \code{"y"} orientation plots to have a y discrete scale.
+\item requires \code{"x"} orientation plots to have a x discrete equiwidth, and \code{"y"} orientation plots to have a y discrete equiwidth.
 }
 }
 \examples{
@@ -60,7 +60,7 @@ set_theme(
     theme(panel.heights = rep(grid::unit(50, "mm"), 2))
 )
 
-set_width(scale = 1)
+set_equiwidth(equiwidth = 1)
 
 # Example 1: 3 species, vertical bars
 palmerpenguins::penguins |>
@@ -126,5 +126,5 @@ palmerpenguins::penguins |>
 
 }
 \seealso{
-\code{\link[=set_width]{set_width()}}
+\code{\link[=set_equiwidth]{set_equiwidth()}}
 }
