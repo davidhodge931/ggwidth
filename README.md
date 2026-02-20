@@ -8,7 +8,18 @@
 <!-- badges: end -->
 
 The objective of ggwidth is to standardise the appearance of the width
-of bars etc.
+in ggplot2 geoms.
+
+This works with geoms such as:
+
+- `geom_bar`/`geom_col`
+- `geom_boxplot`
+- `geom_errorbar`
+- `ggbeeswarm::geom_quasirandom`
+
+It ensures that these geoms appear to have visually consistent width
+across plots with different categories, panel dimensions, and
+orientations.
 
 Note this function:
 
@@ -40,6 +51,7 @@ library(dplyr)
 #> 
 #>     intersect, setdiff, setequal, union
 library(ggwidth)
+library(patchwork)
 
 set_theme(
   theme_grey() +
@@ -51,57 +63,35 @@ set_equiwidth(1)
 ```
 
 ``` r
-palmerpenguins::penguins |>
+p1 <- palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3),
   )
-```
 
-<img src="man/figures/README-example-1-1.png" width="100%" />
-
-``` r
-diamonds |>
+p2 <- diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(width = get_width(n = 7))
-```
 
-<img src="man/figures/README-example-2-1.png" width="100%" />
-
-``` r
-diamonds |>
+p3 <- diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
   )
-```
 
-<img src="man/figures/README-example-3-1.png" width="100%" />
-
-``` r
-palmerpenguins::penguins |>
+p4 <- palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, fill = species)) +
+  ggplot(aes(x = sex, group = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3),
+    width = get_width(n = 2, dodge_n = 3),
   )
+
+p1 + p2 + p3 + p4
 ```
 
-<img src="man/figures/README-example-4-1.png" width="100%" />
-
-``` r
-palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |>
-  ggplot(aes(y = sex, fill = species)) +
-  geom_bar(
-    position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
-  )
-```
-
-<img src="man/figures/README-example-5-1.png" width="100%" />
+<img src="man/figures/README-example-1-1.png" width="100%" />
 
 ``` r
 d <- tibble::tibble(
@@ -127,7 +117,7 @@ d |>
   coord_cartesian(reverse = "y", clip = "off")
 ```
 
-<img src="man/figures/README-example-6-1.png" width="100%" />
+<img src="man/figures/README-example-2-1.png" width="100%" />
 
 ``` r
 palmerpenguins::penguins |>
@@ -139,4 +129,4 @@ palmerpenguins::penguins |>
   theme(panel.widths  = unit(160, "mm"))
 ```
 
-<img src="man/figures/README-example-7-1.png" width="100%" />
+<img src="man/figures/README-example-3-1.png" width="100%" />

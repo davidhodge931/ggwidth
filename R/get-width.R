@@ -1,18 +1,16 @@
-#' Standardise width to appear visually consistent
+#' Standardise 'ggplot2' geom width
 #'
 #' @description
-#' Get a ggplot2 width for a plot that will appear consistent across plots.
-#'
-#' Note this function:
-#'
-#' * requires a set theme with panel widths and heights specified
-#' * requires `"x"` orientation plots to have a x discrete scale with default expand
-#' * requires `"y"` orientation plots to have a y discrete scale with default expand.
+#' Standardise the appearance of widths in 'ggplot2' geoms such as
+#' [geom_bar()], [geom_col()], [geom_boxplot()], [geom_errorbar()], and
+#' [ggbeeswarm::geom_quasirandom()]. Ensures these geoms appear visually
+#' consistent across plots with different numbers of categories, panel
+#' dimensions, and orientations.
 #'
 #' @param ... Reserved for future use. Requires named arguments.
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
-#' @param n_dodge Number of dodge categories. Must match the number of groups in
+#' @param dodge_n Number of dodge categories. Must match the number of groups in
 #'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NA`, then 1.
 #' @param orientation Orientation: `"x"` for vertical (width appearance equiwidthd to
 #'   panel width), `"y"` for horizontal (width appearance equiwidthd to panel height).
@@ -69,7 +67,7 @@
 #'   ggplot(aes(x = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = get_width(n = 2, n_dodge = 3),
+#'     width = get_width(n = 2, dodge_n = 3),
 #'   )
 #'
 #' # Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
@@ -78,7 +76,7 @@
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(),
-#'     width = get_width(n = 2, n_dodge = 3, orientation = "y"),
+#'     width = get_width(n = 2, dodge_n = 3, orientation = "y"),
 #'   )
 #'
 #' # Example 6: Faceted horizontal bar chart with free y scales
@@ -114,7 +112,7 @@
 get_width <- function(
     ...,
     n = NULL,
-    n_dodge = 1,
+    dodge_n = 1,
     orientation = "x",
     equiwidth = NULL,
     panel_widths = NULL,
@@ -159,7 +157,7 @@ get_width <- function(
 
   # 4. Reference n equiwidthd to orientation
   ref_n_x     <- 3
-  ref_n_dodge <- 1
+  ref_dodge_n <- 1
   ref_n <- if (orientation == "x") {
     ref_n_x
   } else {
@@ -168,8 +166,8 @@ get_width <- function(
 
   # 5. Calculation
   base_width <- (n / ref_n) * equiwidth
-  width <- if (n_dodge > 1 || ref_n_dodge > 1) {
-    base_width * (n_dodge / ref_n_dodge)
+  width <- if (dodge_n > 1 || ref_dodge_n > 1) {
+    base_width * (dodge_n / ref_dodge_n)
   } else {
     base_width
   }

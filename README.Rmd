@@ -18,14 +18,23 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The objective of ggwidth is to standardise the appearance of the width of bars etc.
+The objective of ggwidth is to standardise the appearance of the width in ggplot2 geoms.
+
+This works with geoms such as:
+
+* `geom_bar`/`geom_col`
+* `geom_boxplot`
+* `geom_errorbar`
+* `ggbeeswarm::geom_quasirandom`
+
+It ensures that these geoms appear to have visually consistent width across 
+plots with different categories, panel dimensions, and orientations.
 
 Note this function:
 
 * requires a set theme with panel widths and heights specified
 * requires `"x"` orientation plots to have a x discrete scale with default expand
 * requires `"y"` orientation plots to have a y discrete scale with default expand.
-
 
 ## Installation
 
@@ -40,6 +49,7 @@ pak::pak("davidhodge931/ggwidth")
 library(ggplot2)
 library(dplyr)
 library(ggwidth)
+library(patchwork)
 
 set_theme(
   theme_grey() +
@@ -50,44 +60,34 @@ set_theme(
 set_equiwidth(1)
 ```
 ```{r example-1}
-palmerpenguins::penguins |>
+p1 <- palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3),
   )
-```
-```{r example-2}
-diamonds |>
+
+p2 <- diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(width = get_width(n = 7))
-```
-```{r example-3}
-diamonds |>
+
+p3 <- diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
   )
-```
-```{r example-4}
-palmerpenguins::penguins |>
+
+p4 <- palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, fill = species)) +
+  ggplot(aes(x = sex, group = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3),
+    width = get_width(n = 2, dodge_n = 3),
   )
+
+p1 + p2 + p3 + p4
 ```
-```{r example-5}
-palmerpenguins::penguins |>
-  tidyr::drop_na(sex) |>
-  ggplot(aes(y = sex, fill = species)) +
-  geom_bar(
-    position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
-  )
-```
-```{r example-6}
+```{r example-2}
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
@@ -111,7 +111,7 @@ d |>
   coord_cartesian(reverse = "y", clip = "off")
 ```
 
-```{r example-7}
+```{r example-3}
 palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = species)) +

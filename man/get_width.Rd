@@ -2,12 +2,12 @@
 % Please edit documentation in R/get-width.R
 \name{get_width}
 \alias{get_width}
-\title{Standardise width to appear visually consistent}
+\title{Standardise 'ggplot2' geom width}
 \usage{
 get_width(
   ...,
   n = NULL,
-  n_dodge = 1,
+  dodge_n = 1,
   orientation = "x",
   equiwidth = NULL,
   panel_widths = NULL,
@@ -20,7 +20,7 @@ get_width(
 \item{n}{Number of categories in the orientation aesthetic (i.e. \code{"x"} or \code{"y"}).
 For faceted plots, use the maximum \code{n} within a facet.}
 
-\item{n_dodge}{Number of dodge categories. Must match the number of groups in
+\item{dodge_n}{Number of dodge categories. Must match the number of groups in
 the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NA}, then 1.}
 
 \item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidthd to
@@ -42,14 +42,11 @@ A numeric width value passed to the \code{width} argument of
 \code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Get a ggplot2 width for a plot that will appear consistent across plots.
-
-Note this function:
-\itemize{
-\item requires a set theme with panel widths and heights specified
-\item requires \code{"x"} orientation plots to have a x discrete scale with default expand
-\item requires \code{"y"} orientation plots to have a y discrete scale with default expand.
-}
+Standardise the appearance of widths in 'ggplot2' geoms such as
+\code{\link[ggplot2:geom_bar]{ggplot2::geom_bar()}}, \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}, \code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}}, \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbar()}}, and
+\code{\link[ggbeeswarm:geom_quasirandom]{ggbeeswarm::geom_quasirandom()}}. Ensures these geoms appear visually
+consistent across plots with different numbers of categories, panel
+dimensions, and orientations.
 }
 \examples{
 library(ggplot2)
@@ -88,7 +85,7 @@ palmerpenguins::penguins |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3),
+    width = get_width(n = 2, dodge_n = 3),
   )
 
 # Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
@@ -97,7 +94,7 @@ palmerpenguins::penguins |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
     position = position_dodge(),
-    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
+    width = get_width(n = 2, dodge_n = 3, orientation = "y"),
   )
 
 # Example 6: Faceted horizontal bar chart with free y scales

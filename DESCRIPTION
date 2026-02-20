@@ -4,10 +4,15 @@ Version: 0.0.1
 Authors@R: 
     person("David", "Hodge", , "davidhodge931@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3868-7501"))
-Description: Standardise the width of bars in 'ggplot2' visualisation.
+Description: The objective of 'ggwidth' is to standardise the appearance of
+    widths in 'ggplot2' geoms such as 'geom_bar()', 'geom_col()',
+    'geom_boxplot()', 'geom_errorbar()', and
+    'ggbeeswarm::geom_quasirandom()'. It ensures these geoms appear visually
+    consistent across plots with different numbers of categories, panel
+    dimensions, and orientations.
 License: MIT + file LICENSE
 URL: https://github.com/davidhodge931/ggwidth
-BugReports: https://github.com/davidhodge931/ggblanket/issues
+BugReports: https://github.com/davidhodge931/ggwidth/issues
 Depends: 
   R (>= 4.2.0)
 Imports: 
@@ -21,7 +26,9 @@ RoxygenNote: 7.3.3
 Suggests: 
     dplyr,
     forcats,
+    ggbeeswarm,
     palmerpenguins,
+    patchwork,
     testthat (>= 3.0.0),
     tibble,
     tidyr
