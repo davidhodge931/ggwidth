@@ -21,8 +21,7 @@ get_width(
 For faceted plots, use the maximum \code{n} within a facet.}
 
 \item{n_dodge}{Number of dodge categories. Must match the number of groups in
-the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NULL},
-defaults to 1.}
+the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 
 \item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidthd to
 panel width), \code{"y"} for horizontal (width appearance equiwidthd to panel height).}

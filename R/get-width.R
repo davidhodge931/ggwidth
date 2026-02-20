@@ -11,8 +11,7 @@
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in
-#'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NULL`,
-#'   defaults to 1.
+#'   the `fill` or `colour` aesthetic when using `position_dodge()`.
 #' @param orientation Orientation: `"x"` for vertical (width appearance equiwidthd to
 #'   panel width), `"y"` for horizontal (width appearance equiwidthd to panel height).
 #' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
