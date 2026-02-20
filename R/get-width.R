@@ -10,8 +10,9 @@
 #' @param ... Reserved for future use. Requires named arguments.
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
-#' @param dodge_n Number of dodge categories. Must match the number of groups in
-#'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NA`, then 1.
+#' @param n_dodge Number of dodge categories. Must match the number of groups in
+#'   the `fill` or `colour` aesthetic when using `position_dodge()`. If `NULL`,
+#'   defaults to 1.
 #' @param orientation Orientation: `"x"` for vertical (width appearance equiwidthd to
 #'   panel width), `"y"` for horizontal (width appearance equiwidthd to panel height).
 #' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
@@ -75,7 +76,7 @@
 #'   ggplot(aes(x = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(preserve = "single"),
-#'     width = get_width(n = 2, dodge_n = 3),
+#'     width = get_width(n = 2, n_dodge = 3),
 #'     colour = "black",
 #'     fill = "grey",
 #'   )
@@ -86,7 +87,7 @@
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(preserve = "single"),
-#'     width = get_width(n = 2, dodge_n = 3, orientation = "y"),
+#'     width = get_width(n = 2, n_dodge = 3, orientation = "y"),
 #'     colour = "black",
 #'     fill = "grey",
 #'   )
@@ -128,7 +129,7 @@
 get_width <- function(
     ...,
     n = NULL,
-    dodge_n = 1,
+    n_dodge = NULL,
     orientation = "x",
     equiwidth = NULL,
     panel_widths = NULL,
@@ -142,6 +143,9 @@ get_width <- function(
     stop("`panel_widths` must be a `grid::unit` object.")
   if (!is.null(panel_heights) && !is_unit(panel_heights))
     stop("`panel_heights` must be a `grid::unit` object.")
+
+  # Resolve n_dodge, defaulting to 1 if not supplied
+  n_dodge <- n_dodge %||% 1
 
   # Resolve equiwidth from global option if not supplied, defaulting to 1
   equiwidth <- equiwidth %||% getOption("ggwidth.equiwidth", default = 1)
@@ -173,7 +177,7 @@ get_width <- function(
 
   # 4. Reference n equiwidth to orientation
   ref_n_x     <- 3
-  ref_dodge_n <- 1
+  ref_n_dodge <- 1
   ref_n <- if (orientation == "x") {
     ref_n_x
   } else {
@@ -181,9 +185,9 @@ get_width <- function(
   }
 
   # 5. Calculation
-  base_width <- (n /ref_n ) * equiwidth
-  width <- if (dodge_n > 1 || ref_dodge_n > 1) {
-    base_width * (dodge_n / ref_dodge_n)
+  base_width <- (n / ref_n) * equiwidth
+  width <- if (n_dodge > 1 || ref_n_dodge > 1) {
+    base_width * (n_dodge / ref_n_dodge)
   } else {
     base_width
   }

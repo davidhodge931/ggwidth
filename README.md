@@ -93,7 +93,7 @@ p4 <- palmerpenguins::penguins |>
   ggplot(aes(x = species, group = sex)) +
   geom_bar(
     position = position_dodge(preserve = "single"),
-    width = get_width(n = 3, dodge_n = 2),
+    width = get_width(n = 3, n_dodge = 2),
     colour = "black", 
     fill = "grey",
   )

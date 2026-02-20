@@ -7,7 +7,7 @@
 get_width(
   ...,
   n = NULL,
-  dodge_n = 1,
+  n_dodge = NULL,
   orientation = "x",
   equiwidth = NULL,
   panel_widths = NULL,
@@ -20,8 +20,9 @@ get_width(
 \item{n}{Number of categories in the orientation aesthetic (i.e. \code{"x"} or \code{"y"}).
 For faceted plots, use the maximum \code{n} within a facet.}
 
-\item{dodge_n}{Number of dodge categories. Must match the number of groups in
-the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NA}, then 1.}
+\item{n_dodge}{Number of dodge categories. Must match the number of groups in
+the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}. If \code{NULL},
+defaults to 1.}
 
 \item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidthd to
 panel width), \code{"y"} for horizontal (width appearance equiwidthd to panel height).}
@@ -65,18 +66,26 @@ palmerpenguins::penguins |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3),
+    colour = "black",
+    fill = "grey",
   )
 
 # Example 2: Bar chart with 7 diamond colors (x-axis)
 diamonds |>
   ggplot(aes(x = color)) +
-  geom_bar(width = get_width(n = 7))
+  geom_bar(
+  width = get_width(n = 7),
+    colour = "black",
+    fill = "grey",
+   )
 
 # Example 3: Horizontal bar chart with 7 diamond colors (y-axis)
 diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
+    colour = "black",
+    fill = "grey",
   )
 
 # Example 4: Dodged bar chart by sex, filled by species (x-axis)
@@ -84,8 +93,10 @@ palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = sex, fill = species)) +
   geom_bar(
-    position = position_dodge(),
-    width = get_width(n = 2, dodge_n = 3),
+    position = position_dodge(preserve = "single"),
+    width = get_width(n = 2, n_dodge = 3),
+    colour = "black",
+    fill = "grey",
   )
 
 # Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
@@ -93,8 +104,10 @@ palmerpenguins::penguins |>
   tidyr::drop_na(sex) |>
   ggplot(aes(y = sex, fill = species)) +
   geom_bar(
-    position = position_dodge(),
-    width = get_width(n = 2, dodge_n = 3, orientation = "y"),
+    position = position_dodge(preserve = "single"),
+    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
+    colour = "black",
+    fill = "grey",
   )
 
 # Example 6: Faceted horizontal bar chart with free y scales
@@ -113,6 +126,8 @@ d |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
     width = get_width(n = max_n, orientation = "y"),
+    colour = "black",
+    fill = "grey",
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
@@ -124,6 +139,8 @@ palmerpenguins::penguins |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3, panel_widths = unit(160, "mm")),
+    colour = "black",
+    fill = "grey",
   ) +
   theme(panel.widths = unit(160, "mm"))
 
