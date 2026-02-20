@@ -47,18 +47,26 @@
 #'   ggplot(aes(x = species)) +
 #'   geom_bar(
 #'     width = get_width(n = 3),
+#'     colour = "black",
+#'     fill = "grey",
 #'   )
 #'
 #' # Example 2: Bar chart with 7 diamond colors (x-axis)
 #' diamonds |>
 #'   ggplot(aes(x = color)) +
-#'   geom_bar(width = get_width(n = 7))
+#'   geom_bar(
+#'   width = get_width(n = 7),
+#'     colour = "black",
+#'     fill = "grey",
+#'    )
 #'
 #' # Example 3: Horizontal bar chart with 7 diamond colors (y-axis)
 #' diamonds |>
 #'   ggplot(aes(y = color)) +
 #'   geom_bar(
 #'     width = get_width(n = 7, orientation = "y"),
+#'     colour = "black",
+#'     fill = "grey",
 #'   )
 #'
 #' # Example 4: Dodged bar chart by sex, filled by species (x-axis)
@@ -66,8 +74,10 @@
 #'   filter(!is.na(sex)) |>
 #'   ggplot(aes(x = sex, fill = species)) +
 #'   geom_bar(
-#'     position = position_dodge(),
+#'     position = position_dodge(preserve = "single"),
 #'     width = get_width(n = 2, dodge_n = 3),
+#'     colour = "black",
+#'     fill = "grey",
 #'   )
 #'
 #' # Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
@@ -75,8 +85,10 @@
 #'   tidyr::drop_na(sex) |>
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
-#'     position = position_dodge(),
+#'     position = position_dodge(preserve = "single"),
 #'     width = get_width(n = 2, dodge_n = 3, orientation = "y"),
+#'     colour = "black",
+#'     fill = "grey",
 #'   )
 #'
 #' # Example 6: Faceted horizontal bar chart with free y scales
@@ -95,6 +107,8 @@
 #'   ggplot(aes(y = country, x = value)) +
 #'   geom_col(
 #'     width = get_width(n = max_n, orientation = "y"),
+#'     colour = "black",
+#'     fill = "grey",
 #'   ) +
 #'   facet_wrap(~continent, scales = "free_y") +
 #'   scale_y_discrete(continuous.limits = c(1, max_n)) +
@@ -106,6 +120,8 @@
 #'   ggplot(aes(x = species)) +
 #'   geom_bar(
 #'     width = get_width(n = 3, panel_widths = unit(160, "mm")),
+#'     colour = "black",
+#'     fill = "grey",
 #'   ) +
 #'   theme(panel.widths = unit(160, "mm"))
 #'

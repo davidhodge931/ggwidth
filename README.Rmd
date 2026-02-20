@@ -87,10 +87,10 @@ p3 <- diamonds |>
 
 p4 <- palmerpenguins::penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, group = species)) +
+  ggplot(aes(x = species, group = sex)) +
   geom_bar(
-    position = position_dodge(),
-    width = get_width(n = 2, dodge_n = 3),
+    position = position_dodge(preserve = "single"),
+    width = get_width(n = 3, dodge_n = 2),
     colour = "black", 
     fill = "grey",
   )
