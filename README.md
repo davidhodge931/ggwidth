@@ -68,16 +68,24 @@ p1 <- palmerpenguins::penguins |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3),
+    colour = "black", 
+    fill = "grey",
   )
 
 p2 <- diamonds |>
   ggplot(aes(x = color)) +
-  geom_bar(width = get_width(n = 7))
+  geom_bar(
+    width = get_width(n = 7),
+    colour = "black", 
+    fill = "grey",
+  )
 
 p3 <- diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
+    colour = "black", 
+    fill = "grey",
   )
 
 p4 <- palmerpenguins::penguins |>
@@ -86,6 +94,8 @@ p4 <- palmerpenguins::penguins |>
   geom_bar(
     position = position_dodge(),
     width = get_width(n = 2, dodge_n = 3),
+    colour = "black", 
+    fill = "grey",
   )
 
 p1 + p2 + p3 + p4
@@ -111,6 +121,8 @@ d |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
     width = get_width(n = max_n, orientation = "y"),
+    colour = "black", 
+    fill = "grey",
   ) +
   facet_wrap(~continent, scales = "free_y") +
   scale_y_discrete(continuous.limits = c(1, max_n)) +
@@ -125,6 +137,8 @@ palmerpenguins::penguins |>
   ggplot(aes(x = species)) +
   geom_bar(
     width = get_width(n = 3, panel_widths = unit(160, "mm")),
+    colour = "black", 
+    fill = "grey",
   ) +
   theme(panel.widths  = unit(160, "mm"))
 ```

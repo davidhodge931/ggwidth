@@ -155,7 +155,7 @@ get_width <- function(
   ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
   ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
 
-  # 4. Reference n equiwidthd to orientation
+  # 4. Reference n equiwidth to orientation
   ref_n_x     <- 3
   ref_dodge_n <- 1
   ref_n <- if (orientation == "x") {
@@ -165,7 +165,7 @@ get_width <- function(
   }
 
   # 5. Calculation
-  base_width <- (n / ref_n) * equiwidth
+  base_width <- (n /ref_n ) * equiwidth
   width <- if (dodge_n > 1 || ref_dodge_n > 1) {
     base_width * (dodge_n / ref_dodge_n)
   } else {
