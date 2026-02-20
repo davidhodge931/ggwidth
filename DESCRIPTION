@@ -5,7 +5,7 @@ Authors@R:
     person("David", "Hodge", , "davidhodge931@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3868-7501"))
 Description: The objective of 'ggwidth' is to standardise the appearance of
-    widths in 'ggplot2' geoms such as 'geom_bar()', 'geom_col()',
+    the width in 'ggplot2' geoms such as 'geom_bar()', 'geom_col()',
     'geom_boxplot()', 'geom_errorbar()', and
     'ggbeeswarm::geom_quasirandom()'. It ensures these geoms appear visually
     consistent across plots with different numbers of categories, panel

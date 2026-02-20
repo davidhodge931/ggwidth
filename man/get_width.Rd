@@ -42,7 +42,7 @@ A numeric width value passed to the \code{width} argument of
 \code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Standardise the appearance of widths in 'ggplot2' geoms such as
+Standardise the appearance of the width in 'ggplot2' geoms such as
 \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar()}}, \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}, \code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}}, \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbar()}}, and
 \code{\link[ggbeeswarm:geom_quasirandom]{ggbeeswarm::geom_quasirandom()}}. Ensures these geoms appear visually
 consistent across plots with different numbers of categories, panel

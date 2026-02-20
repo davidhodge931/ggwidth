@@ -1,7 +1,7 @@
 #' Standardise 'ggplot2' geom width
 #'
 #' @description
-#' Standardise the appearance of widths in 'ggplot2' geoms such as
+#' Standardise the appearance of the width in 'ggplot2' geoms such as
 #' [geom_bar()], [geom_col()], [geom_boxplot()], [geom_errorbar()], and
 #' [ggbeeswarm::geom_quasirandom()]. Ensures these geoms appear visually
 #' consistent across plots with different numbers of categories, panel
