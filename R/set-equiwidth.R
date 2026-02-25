@@ -10,9 +10,11 @@
 #'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
 #'   falling back to `1`.
 #'
-#' @seealso [get_width()]
+#' @return No return value. Side effects only.
 #'
 #' @export
+#'
+#' @seealso [get_width()]
 #'
 #' @examples
 #' set_equiwidth(1)

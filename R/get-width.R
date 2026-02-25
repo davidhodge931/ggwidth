@@ -1,19 +1,17 @@
 #' Standardise 'ggplot2' geom width
 #'
 #' @description
-#' Standardise the appearance of the width in 'ggplot2' geoms such as
-#' [geom_bar()], [geom_col()], [geom_boxplot()], [geom_errorbar()], and
-#' [ggbeeswarm::geom_quasirandom()]. Ensures these geoms appear visually
-#' consistent across plots with different numbers of categories, panel
-#' dimensions, and orientations.
+#' Standardise the width in 'ggplot2' geoms to appear visually consistent across plots with different numbers of categories, panel dimensions, and orientations.
+#'
+#' This can be used in geoms such as [geom_bar()]/[geom_col()], [geom_boxplot()], [geom_errorbar()].
 #'
 #' @param ... Reserved for future use. Requires named arguments.
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in
 #'   the `fill` or `colour` aesthetic when using `position_dodge()`.
-#' @param orientation Orientation: `"x"` for vertical (width appearance equiwidthd to
-#'   panel width), `"y"` for horizontal (width appearance equiwidthd to panel height).
+#' @param orientation Orientation: `"x"` for vertical (width appearance equiwidth to
+#'   panel width), `"y"` for horizontal (width appearance equiwidth to panel height).
 #' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
 #'   A value of `1` (default) is the default. Increase to make a wider appearance, and
 #'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,

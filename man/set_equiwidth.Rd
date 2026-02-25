@@ -12,6 +12,9 @@ A value of \code{1} (default) is the default. Increase to make a wider appearanc
 decrease to make a thinner appearance. If \code{NULL}, uses the value set by \code{set_equiwidth()},
 falling back to \code{1}.}
 }
+\value{
+No return value. Side effects only.
+}
 \description{
 Sets a global default for the \code{equiwidth} argument in \code{get_width()}.
 All subsequent calls to \code{get_width()} will use this value when

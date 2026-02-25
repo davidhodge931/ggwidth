@@ -2,3 +2,5 @@
 ^LICENSE\.md$
 ^ggwidth\.Rproj$
 ^\.Rproj\.user$
+^[.]?air[.]toml$
+^\.vscode$

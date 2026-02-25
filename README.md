@@ -7,19 +7,14 @@
 
 <!-- badges: end -->
 
-The objective of ggwidth is to standardise the appearance of the width
-in ggplot2 geoms.
+The objective of ggwidth is to standardise ‘ggplot2’ geom width.
 
-This works with geoms such as:
+It provides methods to ensure the width in ggplot2 geoms are visually
+consistent across plots with different numbers of categories, panel
+dimensions, and orientations.
 
-- `geom_bar`/`geom_col`
-- `geom_boxplot`
-- `geom_errorbar`
-- `ggbeeswarm::geom_quasirandom`
-
-It ensures that these geoms appear to have visually consistent width
-across plots with different categories, panel dimensions, and
-orientations.
+It works with geoms such as `geom_bar`/`geom_col`, `geom_boxplot` and
+`geom_errorbar`.
 
 Note this function:
 
@@ -31,11 +26,11 @@ Note this function:
 
 ## Installation
 
-You can install the development version of ggwidth from
-[GitHub](https://github.com/) with:
+Install from CRAN, or development version from
+[GitHub](https://github.com/).
 
 ``` r
-# install.packages("pak")
+install.packages("ggwidth") 
 pak::pak("davidhodge931/ggwidth")
 ```
 
@@ -101,7 +96,7 @@ p4 <- palmerpenguins::penguins |>
 p1 + p2 + p3 + p4
 ```
 
-<img src="man/figures/README-example-1-1.png" width="100%" />
+<img src="man/figures/README-example-1-1.png" alt="" width="100%" />
 
 ``` r
 d <- tibble::tibble(
@@ -129,7 +124,7 @@ d |>
   coord_cartesian(reverse = "y", clip = "off")
 ```
 
-<img src="man/figures/README-example-2-1.png" width="100%" />
+<img src="man/figures/README-example-2-1.png" alt="" width="100%" />
 
 ``` r
 palmerpenguins::penguins |>
@@ -143,4 +138,4 @@ palmerpenguins::penguins |>
   theme(panel.widths  = unit(160, "mm"))
 ```
 
-<img src="man/figures/README-example-3-1.png" width="100%" />
+<img src="man/figures/README-example-3-1.png" alt="" width="100%" />

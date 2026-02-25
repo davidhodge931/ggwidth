@@ -23,8 +23,8 @@ For faceted plots, use the maximum \code{n} within a facet.}
 \item{n_dodge}{Number of dodge categories. Must match the number of groups in
 the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 
-\item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidthd to
-panel width), \code{"y"} for horizontal (width appearance equiwidthd to panel height).}
+\item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidth to
+panel width), \code{"y"} for horizontal (width appearance equiwidth to panel height).}
 
 \item{equiwidth}{Numeric. Multiplicative factor that controls the width appearance.
 A value of \code{1} (default) is the default. Increase to make a wider appearance, and
@@ -42,11 +42,9 @@ A numeric width value passed to the \code{width} argument of
 \code{geom_bar()}, \code{geom_col()}, or similar geoms.
 }
 \description{
-Standardise the appearance of the width in 'ggplot2' geoms such as
-\code{\link[ggplot2:geom_bar]{ggplot2::geom_bar()}}, \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}, \code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}}, \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbar()}}, and
-\code{\link[ggbeeswarm:geom_quasirandom]{ggbeeswarm::geom_quasirandom()}}. Ensures these geoms appear visually
-consistent across plots with different numbers of categories, panel
-dimensions, and orientations.
+Standardise the width in 'ggplot2' geoms to appear visually consistent across plots with different numbers of categories, panel dimensions, and orientations.
+
+This can be used in geoms such as \code{\link[ggplot2:geom_bar]{ggplot2::geom_bar()}}/\code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}, \code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}}, \code{\link[ggplot2:geom_linerange]{ggplot2::geom_errorbar()}}.
 }
 \examples{
 library(ggplot2)

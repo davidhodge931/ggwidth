@@ -1,15 +1,10 @@
 Package: ggwidth
-Title: Standardise 'ggplot2' Width
+Title: Standardise 'ggplot2' Geom Width
 Version: 0.0.1
 Authors@R: 
     person("David", "Hodge", , "davidhodge931@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-3868-7501"))
-Description: The objective of 'ggwidth' is to standardise the appearance of
-    the width in 'ggplot2' geoms such as 'geom_bar()', 'geom_col()',
-    'geom_boxplot()', 'geom_errorbar()', and
-    'ggbeeswarm::geom_quasirandom()'. It ensures these geoms appear visually
-    consistent across plots with different numbers of categories, panel
-    dimensions, and orientations.
+Description: Standardise the width in 'ggplot2' geoms to appear visually consistent across plots with different numbers of categories, panel dimensions, and orientations.
 License: MIT + file LICENSE
 URL: https://github.com/davidhodge931/ggwidth
 BugReports: https://github.com/davidhodge931/ggwidth/issues
