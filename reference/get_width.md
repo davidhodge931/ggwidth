@@ -48,10 +48,10 @@ get_width(
 
 - equiwidth:
 
-  Numeric. Multiplicative factor that controls the width appearance. A
-  value of `1` (default) is the default. Increase to make a wider
-  appearance, and decrease to make a thinner appearance. If `NULL`, uses
-  the value set by
+  Numeric. Scaling factor that controls the width appearance. A value of
+  `1` (default) is the default. Increase to make a wider appearance, and
+  decrease to make a thinner appearance. If `NULL`, uses the value set
+  by
   [`set_equiwidth()`](https://davidhodge931.github.io/ggwidth/reference/set_equiwidth.md),
   falling back to `1`.
 

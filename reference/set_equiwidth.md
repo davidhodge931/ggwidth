@@ -1,8 +1,9 @@
-# Set a global width equiwidth
+# Set a global equiwidth
 
 Sets a global default for the `equiwidth` argument in
 [`get_width()`](https://davidhodge931.github.io/ggwidth/reference/get_width.md).
-All subsequent calls to
+This is the scaling factor that controls the width appearance. All
+subsequent calls to
 [`get_width()`](https://davidhodge931.github.io/ggwidth/reference/get_width.md)
 will use this value when `equiwidth = NULL` falling back to 1.
 
