@@ -124,22 +124,26 @@
 #'   theme(panel.widths = unit(160, "mm"))
 #'
 get_width <- function(
-    ...,
-    n = NULL,
-    n_dodge = NULL,
-    orientation = "x",
-    equiwidth = NULL,
-    panel_widths = NULL,
-    panel_heights = NULL
+  ...,
+  n = NULL,
+  n_dodge = NULL,
+  orientation = "x",
+  equiwidth = NULL,
+  panel_widths = NULL,
+  panel_heights = NULL
 ) {
-  if (is.null(n)) stop("n must be specified")
+  if (is.null(n)) {
+    stop("n must be specified")
+  }
 
   is_unit <- function(x) inherits(x, "unit")
 
-  if (!is.null(panel_widths) && !is_unit(panel_widths))
+  if (!is.null(panel_widths) && !is_unit(panel_widths)) {
     stop("`panel_widths` must be a `grid::unit` object.")
-  if (!is.null(panel_heights) && !is_unit(panel_heights))
+  }
+  if (!is.null(panel_heights) && !is_unit(panel_heights)) {
     stop("`panel_heights` must be a `grid::unit` object.")
+  }
 
   # Resolve n_dodge, defaulting to 1 if not supplied
   n_dodge <- n_dodge %||% 1
@@ -152,14 +156,14 @@ get_width <- function(
 
   # 1. Get current theme settings, overriding with supplied dims if provided
   current_theme <- ggplot2::theme_get()
-  panel_widths  <- panel_widths  %||% current_theme$panel.widths
+  panel_widths <- panel_widths %||% current_theme$panel.widths
   panel_heights <- panel_heights %||% current_theme$panel.heights
 
   # 2. Validation and Conversion
   current_panel_dim <- if (orientation == "x") panel_widths else panel_heights
-  current_panel_mm  <- safe_convert_mm(current_panel_dim)
+  current_panel_mm <- safe_convert_mm(current_panel_dim)
 
-  panel_widths_mm  <- safe_convert_mm(panel_widths)
+  panel_widths_mm <- safe_convert_mm(panel_widths)
   panel_heights_mm <- safe_convert_mm(panel_heights)
 
   if (is.na(panel_widths_mm) || is.na(panel_heights_mm)) {
@@ -167,18 +171,23 @@ get_width <- function(
   }
 
   # 3. Reference panel dimensions
-  ref_panel_widths  <- rep(grid::unit(75, "mm"), 2)
+  ref_panel_widths <- rep(grid::unit(75, "mm"), 2)
   ref_panel_heights <- rep(grid::unit(50, "mm"), 2)
-  ref_panel_dim     <- if (orientation == "x") ref_panel_widths else ref_panel_heights
-  ref_panel_mm      <- safe_convert_mm(ref_panel_dim)
+  ref_panel_dim <- if (orientation == "x") {
+    ref_panel_widths
+  } else {
+    ref_panel_heights
+  }
+  ref_panel_mm <- safe_convert_mm(ref_panel_dim)
 
   # 4. Reference n equiwidth to orientation
-  ref_n_x     <- 3
+  ref_n_x <- 3
   ref_n_dodge <- 1
   ref_n <- if (orientation == "x") {
     ref_n_x
   } else {
-    ref_n_x * (safe_convert_mm(ref_panel_heights) / safe_convert_mm(ref_panel_widths))
+    ref_n_x *
+      (safe_convert_mm(ref_panel_heights) / safe_convert_mm(ref_panel_widths))
   }
 
   # 5. Calculation
@@ -196,7 +205,9 @@ get_width <- function(
   }
 
   if (any(width >= 1)) {
-    stop("The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions.")
+    stop(
+      "The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions."
+    )
   }
 
   return(width)
@@ -205,12 +216,17 @@ get_width <- function(
 #' Convert units to mm safely
 #' @noRd
 safe_convert_mm <- function(x) {
-  if (is.null(x)) return(NA)
+  if (is.null(x)) {
+    return(NA)
+  }
 
   u <- if (is.list(x)) x[[1]] else x[1]
 
-  tryCatch({
-    val <- grid::convertUnit(u, "mm", valueOnly = TRUE)
-    if (length(val) > 1) val[1] else val
-  }, error = function(e) NA)
+  tryCatch(
+    {
+      val <- grid::convertUnit(u, "mm", valueOnly = TRUE)
+      if (length(val) > 1) val[1] else val
+    },
+    error = function(e) NA
+  )
 }
