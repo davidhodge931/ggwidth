@@ -2,7 +2,7 @@
 % Please edit documentation in R/set-equiwidth.R
 \name{set_equiwidth}
 \alias{set_equiwidth}
-\title{Set a global width equiwidth}
+\title{Set a global equiwidth}
 \usage{
 set_equiwidth(equiwidth = 1)
 }
@@ -17,6 +17,7 @@ No return value. Side effects only.
 }
 \description{
 Sets a global default for the \code{equiwidth} argument in \code{get_width()}.
+This is the scaling factor that controls the width appearance.
 All subsequent calls to \code{get_width()} will use this value when
 \code{equiwidth = NULL} falling back to 1.
 }

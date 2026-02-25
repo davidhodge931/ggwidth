@@ -1,7 +1,8 @@
-#' Set a global width equiwidth
+#' Set a global equiwidth
 #'
 #' @description
 #' Sets a global default for the `equiwidth` argument in `get_width()`.
+#' This is the scaling factor that controls the width appearance.
 #' All subsequent calls to `get_width()` will use this value when
 #' `equiwidth = NULL` falling back to 1.
 #'

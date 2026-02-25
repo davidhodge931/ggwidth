@@ -26,7 +26,7 @@ the \code{fill} or \code{colour} aesthetic when using \code{position_dodge()}.}
 \item{orientation}{Orientation: \code{"x"} for vertical (width appearance equiwidth to
 panel width), \code{"y"} for horizontal (width appearance equiwidth to panel height).}
 
-\item{equiwidth}{Numeric. Multiplicative factor that controls the width appearance.
+\item{equiwidth}{Numeric. Scaling factor that controls the width appearance.
 A value of \code{1} (default) is the default. Increase to make a wider appearance, and
 decrease to make a thinner appearance. If \code{NULL}, uses the value set by \code{set_equiwidth()},
 falling back to \code{1}.}
