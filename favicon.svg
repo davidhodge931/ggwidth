@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="278"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="278"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 278" width="240" height="278">
+  <defs>
+    <!-- Hex points: 120,5 | 229,66 | 229,212 | 120,273 | 11,212 | 11,66 -->
+    <clipPath id="hexClip">
+      <polygon points="120,5 229,66 229,212 120,273 11,212 11,66"></polygon>
+    </clipPath>
+
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b0b1a"></stop>
+      <stop offset="50%" stop-color="#0d2545"></stop>
+      <stop offset="100%" stop-color="#38196a"></stop>
+    </linearGradient>
+
+    <linearGradient id="pillarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a5a6e"></stop>
+      <stop offset="22%" stop-color="#8090a0"></stop>
+      <stop offset="58%" stop-color="#687888"></stop>
+      <stop offset="100%" stop-color="#384858"></stop>
+    </linearGradient>
+
+    <linearGradient id="pillarHL" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0"></stop>
+      <stop offset="28%" stop-color="#fff" stop-opacity="0.28"></stop>
+      <stop offset="60%" stop-color="#fff" stop-opacity="0.04"></stop>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ddd8c0" stop-opacity="0.5"></stop>
+      <stop offset="50%" stop-color="#c8c0a0" stop-opacity="0.2"></stop>
+      <stop offset="100%" stop-color="#b0a880" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <radialGradient id="archGlow" cx="50%" cy="100%" r="70%">
+      <stop offset="0%" stop-color="#6040a0" stop-opacity="0.65"></stop>
+      <stop offset="100%" stop-color="#6040a0" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <filter id="moonFilter">
+      <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
+      <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+
+  <g clip-path="url(#hexClip)">
+
+    <!-- Sky background -->
+    <rect width="240" height="278" fill="url(#skyGrad)"></rect>
+
+    <!-- Purple glow at base -->
+    <ellipse cx="120" cy="230" rx="140" ry="90" fill="url(#archGlow)"></ellipse>
+
+
+
+
+
+
+
+    <!-- Dark ground — fills everything below the purple line -->
+    <rect x="0" y="194" width="240" height="84" fill="#070714"></rect>
+
+    <g transform="translate(120, 100) scale(0.95, 1.02) translate(-120, -100)">
+    <!-- ===== STEPS ===== -->
+    <!-- Shadow cast by temple onto ground -->
+    <ellipse cx="128" cy="204" rx="88" ry="6" fill="#000000" opacity="0.35"></ellipse>
+    <!-- Step 3 bottom - dark front face -->
+    <rect x="20" y="196" width="200" height="8" rx="1" fill="#203040"></rect>
+    <!-- Step 3 top face lighter -->
+    <rect x="20" y="196" width="200" height="3" rx="1" fill="#3a4a5a"></rect>
+    <!-- Step 2 -->
+    <rect x="28" y="188" width="184" height="9" rx="1" fill="#2e4050"></rect>
+    <rect x="28" y="188" width="184" height="3" rx="1" fill="#887668"></rect>
+    <!-- Step 1 / stylobate -->
+    <rect x="36" y="179" width="168" height="10" rx="1" fill="#384858"></rect>
+    <rect x="36" y="179" width="168" height="3" rx="1" fill="#8090a0"></rect>
+    <!-- Right-side shadow on steps -->
+    <rect x="188" y="179" width="16" height="25" rx="1" fill="#000000" opacity="0.12"></rect>
+
+    <!-- ===== ENTABLATURE ===== -->
+    <!-- Shadow under cornice (cast onto frieze) -->
+    <rect x="30" y="90" width="180" height="6" fill="#000000" opacity="0.22"></rect>
+    <!-- Cornice -->
+    <rect x="30" y="82" width="180" height="9" rx="1" fill="#707c88"></rect>
+    <!-- Cornice bottom shadow line -->
+    <rect x="30" y="89" width="180" height="2" rx="0" fill="#485868" opacity="0.7"></rect>
+    <!-- Frieze -->
+    <rect x="34" y="91" width="172" height="13" rx="1" fill="#506070"></rect>
+    <!-- Triglyphs with shadows -->
+    <g fill="#303840" opacity="0.9">
+      <rect x="40" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="61" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="82" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="103" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="124" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="145" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="166" y="93" width="7" height="9" rx="0.5"></rect>
+      <rect x="187" y="93" width="7" height="9" rx="0.5"></rect>
+    </g>
+    <!-- Triglyph right-edge shadow -->
+    <g fill="#000000" opacity="0.18">
+      <rect x="46" y="93" width="2" height="9"></rect>
+      <rect x="67" y="93" width="2" height="9"></rect>
+      <rect x="88" y="93" width="2" height="9"></rect>
+      <rect x="109" y="93" width="2" height="9"></rect>
+      <rect x="130" y="93" width="2" height="9"></rect>
+      <rect x="151" y="93" width="2" height="9"></rect>
+      <rect x="172" y="93" width="2" height="9"></rect>
+      <rect x="193" y="93" width="2" height="9"></rect>
+    </g>
+    <!-- Architrave -->
+    <rect x="34" y="104" width="172" height="10" rx="1" fill="#384858"></rect>
+    <!-- Architrave bottom shadow -->
+    <rect x="34" y="112" width="172" height="3" fill="#384858" opacity="0.6"></rect>
+    <!-- Shadow cast by entablature onto pillar tops -->
+    <rect x="34" y="114" width="172" height="7" fill="#000000" opacity="0.2"></rect>
+
+    <!-- ===== PEDIMENT ===== -->
+    <!-- Pediment shadow (cast downward onto cornice) -->
+    <polygon points="120,54 34,82 206,82" fill="#485868"></polygon>
+    <!-- Pediment inner darker face -->
+    <polygon points="120,60 40,82 200,82" fill="#425060"></polygon>
+    <!-- Pediment right-side shadow -->
+    <polygon points="120,54 206,82 190,82" fill="#000000" opacity="0.15"></polygon>
+    <!-- Pediment highlight on left slope -->
+    <polygon points="120,54 34,82 55,82" fill="#ffffff" opacity="0.08"></polygon>
+    <polyline points="34,82 120,54 206,82" fill="none" stroke="#707c88" stroke-width="2.5"></polyline>
+
+    <!-- ===== PILLARS ===== -->
+    <!-- Inter-pillar shadow strips (cast by each pillar onto the one behind/floor) -->
+    <!-- These dark rectangles sit in the gaps between pillars to sell depth -->
+    <g fill="#000000" opacity="0.28">
+      <rect x="60" y="114" width="8" height="65"></rect>
+      <rect x="88" y="114" width="8" height="65"></rect>
+      <rect x="116" y="114" width="8" height="65"></rect>
+      <rect x="144" y="114" width="8" height="65"></rect>
+      <rect x="172" y="114" width="8" height="65"></rect>
+      <!-- Far left and right edges darker -->
+      <rect x="40" y="114" width="3" height="65" opacity="0.15"></rect>
+      <rect x="197" y="114" width="3" height="65" opacity="0.15"></rect>
+    </g>
+
+    <g>
+      <!-- Pillar 1 x=40 -->
+      <rect x="40" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="40" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <!-- Right-edge shadow on each pillar -->
+      <rect x="56" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="38" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="38" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="47" y1="115" x2="47" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="53" y1="115" x2="53" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+
+      <!-- Pillar 2 x=68 -->
+      <rect x="68" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="68" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <rect x="84" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="66" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="66" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="75" y1="115" x2="75" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="81" y1="115" x2="81" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+
+      <!-- Pillar 3 x=96 -->
+      <rect x="96" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="96" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <rect x="112" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="94" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="94" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="103" y1="115" x2="103" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="109" y1="115" x2="109" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+
+      <!-- Pillar 4 x=124 -->
+      <rect x="124" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="124" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <rect x="140" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="122" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="122" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="131" y1="115" x2="131" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="137" y1="115" x2="137" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+
+      <!-- Pillar 5 x=152 -->
+      <rect x="152" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="152" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <rect x="168" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="150" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="150" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="159" y1="115" x2="159" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="165" y1="115" x2="165" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+
+      <!-- Pillar 6 x=180 -->
+      <rect x="180" y="114" width="20" height="65" fill="url(#pillarGrad)"></rect>
+      <rect x="180" y="114" width="20" height="65" fill="url(#pillarHL)"></rect>
+      <rect x="196" y="114" width="4" height="65" fill="#000000" opacity="0.2"></rect>
+      <rect x="178" y="111" width="24" height="5" rx="0.5" fill="#384858"></rect>
+      <rect x="178" y="178" width="24" height="4" rx="0.5" fill="#8090a0"></rect>
+      <line x1="187" y1="115" x2="187" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+      <line x1="193" y1="115" x2="193" y2="178" stroke="#3a4858" stroke-width="0.8" opacity="0.5"></line>
+    </g>
+
+    </g><!-- end temple translate -->
+
+    <!-- ===== LABEL BAND ===== -->
+    <rect x="0" y="194" width="240" height="84" fill="#09091a"></rect>
+    <!-- Purple accent stripe — clipped to inner hex boundary (x=17 to x=223) -->
+    <rect x="17" y="194" width="206" height="2.5" fill="#7050b8" opacity="0.95"></rect>
+
+    <!-- ggwidth — baseline at y=226, centred (wider hex cross-section here) -->
+    <text x="120" y="223" font-family="'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif" font-size="26" font-weight="bold" fill="#d0dce8" text-anchor="middle" letter-spacing="2">ggwidth</text>
+
+
+
+  </g>
+
+  <!-- Border drawn over clip so it's crisp on the hex edge -->
+  <polygon points="120,5 229,66 229,212 120,273 11,212 11,66" fill="none" stroke="#09091a" stroke-width="8"></polygon>
+  <polygon points="120,10 223,69 223,208 120,268 17,208 17,69" fill="none" stroke="#7050b8" stroke-width="1.5" opacity="0.4"></polygon>
+
+</svg></svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
