@@ -23,6 +23,4 @@ Suggests:
     forcats,
     palmerpenguins,
     patchwork,
-    testthat (>= 3.0.0),
-    tibble,
-    tidyr
+    tibble

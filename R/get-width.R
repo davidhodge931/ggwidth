@@ -80,7 +80,7 @@
 #'
 #' # Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
 #' palmerpenguins::penguins |>
-#'   tidyr::drop_na(sex) |>
+#'   filter(!is.na(sex)) |>
 #'   ggplot(aes(y = sex, fill = species)) +
 #'   geom_bar(
 #'     position = position_dodge(preserve = "single"),

@@ -39,7 +39,7 @@ install.packages("ggwidth")
 pak::pak("davidhodge931/ggwidth")
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
 library(ggplot2)
 library(dplyr)
 library(ggwidth)
