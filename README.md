@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggwidth <img src="man/figures/logo.png" align="right" width="120" />
+# ggwidth <a href="https://davidhodge931.github.io/ggwidth/"><img src="man/figures/logo.png" align="right" height="139" alt="ggwidth website" /></a>
 
 <!-- badges: start -->
 
