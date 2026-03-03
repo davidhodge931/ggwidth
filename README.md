@@ -7,16 +7,26 @@
 
 <!-- badges: end -->
 
-The objective of ggwidth is to standardise ‘ggplot2’ geom width. It
-provides methods to ensure the width in ggplot2 geoms are visually
+The objective of ggwidth is to standardise ‘ggplot2’ geom width.
+
+It provides methods to ensure the width in ggplot2 geoms are visually
 consistent across plots with different numbers of categories, panel
-dimensions, and orientations. It works with geoms such as
-`geom_bar`/`geom_col`, `geom_boxplot` and `geom_errorbar`. Note this
-function: \* requires a set theme with panel widths and heights
-specified \* requires `"x"` orientation plots to have a x discrete scale
-with default expand \* requires `"y"` orientation plots to have a y
-discrete scale with default expand. \## Installation Install from CRAN,
-or development version from [GitHub](https://github.com/).
+dimensions, and orientations.
+
+It works with geoms such as `geom_bar`/`geom_col`, `geom_boxplot` and
+`geom_errorbar`.
+
+Note this function requires:
+
+- a set theme with panel widths and heights specified
+- `"x"` orientation plots to have a x discrete scale with default expand
+- `"y"` orientation plots to have a y discrete scale with default
+  expand.
+
+## Installation
+
+Install from CRAN, or development version from
+[GitHub](https://github.com/).
 
 ``` r
 install.packages("ggwidth") 
