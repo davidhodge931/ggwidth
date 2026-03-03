@@ -68,19 +68,7 @@
 </div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The objective of ggwidth is to standardise ‘ggplot2’ geom width.</p>
-<p>It provides methods to ensure the width in ggplot2 geoms are visually consistent across plots with different numbers of categories, panel dimensions, and orientations.</p>
-<p>It works with geoms such as <code>geom_bar</code>/<code>geom_col</code>, <code>geom_boxplot</code> and <code>geom_errorbar</code>.</p>
-<p>Note this function:</p>
-<ul>
-<li>requires a set theme with panel widths and heights specified</li>
-<li>requires <code>"x"</code> orientation plots to have a x discrete scale with default expand</li>
-<li>requires <code>"y"</code> orientation plots to have a y discrete scale with default expand.</li>
-</ul>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<p>Install from CRAN, or development version from <a href="https://github.com/" class="external-link">GitHub</a>.</p>
+<p>The objective of ggwidth is to standardise ‘ggplot2’ geom width. It provides methods to ensure the width in ggplot2 geoms are visually consistent across plots with different numbers of categories, panel dimensions, and orientations. It works with geoms such as <code>geom_bar</code>/<code>geom_col</code>, <code>geom_boxplot</code> and <code>geom_errorbar</code>. Note this function: * requires a set theme with panel widths and heights specified * requires <code>"x"</code> orientation plots to have a x discrete scale with default expand * requires <code>"y"</code> orientation plots to have a y discrete scale with default expand. ## Installation Install from CRAN, or development version from <a href="https://github.com/" class="external-link">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggwidth"</span><span class="op">)</span> </span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"davidhodge931/ggwidth"</span><span class="op">)</span></span></code></pre></div>
@@ -98,12 +86,11 @@
 <span></span>
 <span><span class="fu"><a href="reference/set_equiwidth.html">set_equiwidth</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">mpg</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -111,7 +98,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -119,19 +106,18 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span>, orientation <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, group <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">mpg</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
-<span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, n_dodge <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, n_dodge <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-1-1.png" alt="" width="100%"></p>
@@ -153,7 +139,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">country</span>, x <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">max_n</span>, orientation <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">continent</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -161,17 +147,15 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>reverse <span class="op">=</span> <span class="st">"y"</span>, clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-2-1.png" alt="" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="reference/get_width.html">get_width</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, panel_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">160</span>, <span class="st">"mm"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.widths  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">160</span>, <span class="st">"mm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">160</span>, <span class="st">"mm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-3-1.png" alt="" width="100%"></p>
-</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>

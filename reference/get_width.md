@@ -90,6 +90,7 @@ library(dplyr)
 #> The following objects are masked from ‘package:base’:
 #> 
 #>     intersect, setdiff, setequal, union
+library(patchwork)
 
 set_theme(
   theme_grey() +
@@ -98,29 +99,23 @@ set_theme(
 )
 set_equiwidth(1)
 
-# Example 1: Basic bar chart with 3 species (x-axis)
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species)) +
+p1 <- mpg |>
+  ggplot(aes(x = drv)) +
   geom_bar(
     width = get_width(n = 3),
     colour = "black",
     fill = "grey",
   )
 
-
-# Example 2: Bar chart with 7 diamond colors (x-axis)
-diamonds |>
+p2 <- diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(
-  width = get_width(n = 7),
+    width = get_width(n = 7),
     colour = "black",
     fill = "grey",
-   )
+  )
 
-
-# Example 3: Horizontal bar chart with 7 diamond colors (y-axis)
-diamonds |>
+p3 <- diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
@@ -128,42 +123,30 @@ diamonds |>
     fill = "grey",
   )
 
-
-# Example 4: Dodged bar chart by sex, filled by species (x-axis)
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = sex, fill = species)) +
+p4 <- mpg |>
+  ggplot(aes(x = drv, group = factor(cyl))) +
   geom_bar(
     position = position_dodge(preserve = "single"),
-    width = get_width(n = 2, n_dodge = 3),
+    width = get_width(n = 3, n_dodge = 4),
     colour = "black",
     fill = "grey",
   )
 
-
-# Example 5: Horizontal dodged bar chart by sex, filled by species (y-axis)
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(y = sex, fill = species)) +
-  geom_bar(
-    position = position_dodge(preserve = "single"),
-    width = get_width(n = 2, n_dodge = 3, orientation = "y"),
-    colour = "black",
-    fill = "grey",
-  )
+p1 + p2 + p3 + p4
 
 
-# Example 6: Faceted horizontal bar chart with free y scales
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
   country   = c("AT", "DE", "DK", "ES", "PK", "TW", "BR"),
   value     = c(10L, 15L, 20L, 25L, 17L, 13L, 5L)
 )
+
 max_n <- d |>
   count(continent) |>
   pull(n) |>
   max()
+
 d |>
   mutate(country = forcats::fct_rev(country)) |>
   ggplot(aes(y = country, x = value)) +
@@ -177,10 +160,8 @@ d |>
   coord_cartesian(reverse = "y", clip = "off")
 
 
-# Example 7: Bar chart with a custom panel width override
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species)) +
+mpg |>
+  ggplot(aes(x = drv)) +
   geom_bar(
     width = get_width(n = 3, panel_widths = unit(160, "mm")),
     colour = "black",
