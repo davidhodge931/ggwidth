@@ -19,3 +19,5 @@ Suggests:
     patchwork,
     tibble
 URL: https://github.com/davidhodge931/ggwidth, https://davidhodge931.github.io/ggwidth/
+Depends: 
+    R (>= 4.1.0)
