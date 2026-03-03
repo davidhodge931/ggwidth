@@ -7,27 +7,16 @@
 
 <!-- badges: end -->
 
-The objective of ggwidth is to standardise ‘ggplot2’ geom width.
-
-It provides methods to ensure the width in ggplot2 geoms are visually
+The objective of ggwidth is to standardise ‘ggplot2’ geom width. It
+provides methods to ensure the width in ggplot2 geoms are visually
 consistent across plots with different numbers of categories, panel
-dimensions, and orientations.
-
-It works with geoms such as `geom_bar`/`geom_col`, `geom_boxplot` and
-`geom_errorbar`.
-
-Note this function:
-
-- requires a set theme with panel widths and heights specified
-- requires `"x"` orientation plots to have a x discrete scale with
-  default expand
-- requires `"y"` orientation plots to have a y discrete scale with
-  default expand.
-
-## Installation
-
-Install from CRAN, or development version from
-[GitHub](https://github.com/).
+dimensions, and orientations. It works with geoms such as
+`geom_bar`/`geom_col`, `geom_boxplot` and `geom_errorbar`. Note this
+function: \* requires a set theme with panel widths and heights
+specified \* requires `"x"` orientation plots to have a x discrete scale
+with default expand \* requires `"y"` orientation plots to have a y
+discrete scale with default expand. \## Installation Install from CRAN,
+or development version from [GitHub](https://github.com/).
 
 ``` r
 install.packages("ggwidth") 
@@ -50,12 +39,11 @@ set_equiwidth(1)
 ```
 
 ``` r
-p1 <- palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species)) +
+p1 <- mpg |>
+  ggplot(aes(x = drv)) +
   geom_bar(
     width = get_width(n = 3),
-    colour = "black", 
+    colour = "black",
     fill = "grey",
   )
 
@@ -63,7 +51,7 @@ p2 <- diamonds |>
   ggplot(aes(x = color)) +
   geom_bar(
     width = get_width(n = 7),
-    colour = "black", 
+    colour = "black",
     fill = "grey",
   )
 
@@ -71,19 +59,18 @@ p3 <- diamonds |>
   ggplot(aes(y = color)) +
   geom_bar(
     width = get_width(n = 7, orientation = "y"),
-    colour = "black", 
+    colour = "black",
     fill = "grey",
   )
 
-p4 <- palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species, group = sex)) +
+p4 <- mpg |>
+  ggplot(aes(x = drv, group = factor(cyl))) +
   geom_bar(
     position = position_dodge(preserve = "single"),
-    width = get_width(n = 3, n_dodge = 2),
-    colour = "black", 
+    width = get_width(n = 3, n_dodge = 4),
+    colour = "black",
     fill = "grey",
-  )
+  ) 
 
 p1 + p2 + p3 + p4
 ```
@@ -108,7 +95,7 @@ d |>
   ggplot(aes(y = country, x = value)) +
   geom_col(
     width = get_width(n = max_n, orientation = "y"),
-    colour = "black", 
+    colour = "black",
     fill = "grey",
   ) +
   facet_wrap(~continent, scales = "free_y") +
@@ -119,15 +106,14 @@ d |>
 <img src="man/figures/README-example-2-1.png" alt="" width="100%" />
 
 ``` r
-palmerpenguins::penguins |>
-  filter(!is.na(sex)) |>
-  ggplot(aes(x = species)) +
+mpg |>
+  ggplot(aes(x = drv)) +
   geom_bar(
     width = get_width(n = 3, panel_widths = unit(160, "mm")),
-    colour = "black", 
+    colour = "black",
     fill = "grey",
   ) +
-  theme(panel.widths  = unit(160, "mm"))
+  theme(panel.widths = unit(160, "mm"))
 ```
 
 <img src="man/figures/README-example-3-1.png" alt="" width="100%" />
