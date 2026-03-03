@@ -212,21 +212,3 @@ get_width <- function(
 
   return(width)
 }
-
-#' Convert units to mm safely
-#' @noRd
-safe_convert_mm <- function(x) {
-  if (is.null(x)) {
-    return(NA)
-  }
-
-  u <- if (is.list(x)) x[[1]] else x[1]
-
-  tryCatch(
-    {
-      val <- grid::convertUnit(u, "mm", valueOnly = TRUE)
-      if (length(val) > 1) val[1] else val
-    },
-    error = function(e) NA
-  )
-}
