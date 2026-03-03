@@ -7,8 +7,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ggwidth)](https://CRAN.R-project.org/package=ggwidth)
-[![R-universe
-version](https://davidhodge931.r-universe.dev/ggwidth/badges/version)](https://davidhodge931.r-universe.dev/ggwidth)
 <!-- badges: end -->
 
 The objective of ggwidth is to standardise ‘ggplot2’ geom width.
