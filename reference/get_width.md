@@ -27,7 +27,7 @@ get_width(
 
 - ...:
 
-  Reserved for future use. Requires named arguments.
+  Must be empty. Forces all other arguments to be named.
 
 - n:
 
