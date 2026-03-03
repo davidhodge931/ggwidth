@@ -8,10 +8,9 @@ Description: Standardise the width in 'ggplot2' geoms to appear visually consist
 License: MIT + file LICENSE
 BugReports: https://github.com/davidhodge931/ggwidth/issues
 Depends: 
-  R (>= 4.2.0)
+  R (>= 4.4.0)
 Imports: 
-    ggplot2 (>= 3.5.2),
-    grid
+    ggplot2 (>= 4.0.0)
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)

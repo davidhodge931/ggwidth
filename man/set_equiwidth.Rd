@@ -8,9 +8,8 @@ set_equiwidth(equiwidth = 1)
 }
 \arguments{
 \item{equiwidth}{Numeric. Multiplicative factor that controls the width appearance.
-A value of \code{1} (default) is the default. Increase to make a wider appearance, and
-decrease to make a thinner appearance. If \code{NULL}, uses the value set by \code{set_equiwidth()},
-falling back to \code{1}.}
+A value of \code{1} is the default. Increase to make a wider appearance, and
+decrease to make a thinner appearance.}
 }
 \value{
 No return value. Side effects only.
@@ -18,8 +17,8 @@ No return value. Side effects only.
 \description{
 Sets a global default for the \code{equiwidth} argument in \code{get_width()}.
 This is the scaling factor that controls the width appearance.
-All subsequent calls to \code{get_width()} will use this value when
-\code{equiwidth = NULL} falling back to 1.
+All subsequent calls to \code{get_width()} use this value when
+\code{equiwidth = NULL}, and fall back to 1.
 }
 \examples{
 set_equiwidth(1)

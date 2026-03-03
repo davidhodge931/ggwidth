@@ -3,13 +3,12 @@
 #' @description
 #' Sets a global default for the `equiwidth` argument in `get_width()`.
 #' This is the scaling factor that controls the width appearance.
-#' All subsequent calls to `get_width()` will use this value when
-#' `equiwidth = NULL` falling back to 1.
+#' All subsequent calls to `get_width()` use this value when
+#' `equiwidth = NULL`, and fall back to 1.
 #'
 #' @param equiwidth Numeric. Multiplicative factor that controls the width appearance.
-#'   A value of `1` (default) is the default. Increase to make a wider appearance, and
-#'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
-#'   falling back to `1`.
+#'   A value of `1` is the default. Increase to make a wider appearance, and
+#'   decrease to make a thinner appearance.
 #'
 #' @return No return value. Side effects only.
 #'

@@ -13,7 +13,7 @@
 #' @param orientation Orientation: `"x"` for vertical (width appearance equiwidth to
 #'   panel width), `"y"` for horizontal (width appearance equiwidth to panel height).
 #' @param equiwidth Numeric. Scaling factor that controls the width appearance.
-#'   A value of `1` (default) is the default. Increase to make a wider appearance, and
+#'   A value of `1` is the default. Increase to make a wider appearance, and
 #'   decrease to make a thinner appearance. If `NULL`, uses the value set by `set_equiwidth()`,
 #'   falling back to `1`.
 #' @param panel_widths A `grid::unit` object specifying the panel width. If `NULL`
