@@ -109,13 +109,13 @@
 #'   theme(panel.widths = unit(160, "mm"))
 #'
 get_width <- function(
-    ...,
-    n = NULL,
-    n_dodge = NULL,
-    orientation = "x",
-    equiwidth = NULL,
-    panel_widths = NULL,
-    panel_heights = NULL
+  ...,
+  n = NULL,
+  n_dodge = NULL,
+  orientation = "x",
+  equiwidth = NULL,
+  panel_widths = NULL,
+  panel_heights = NULL
 ) {
   if (is.null(n)) {
     stop("n must be specified")
