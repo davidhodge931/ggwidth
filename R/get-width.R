@@ -29,7 +29,6 @@
 #' @seealso [set_equiwidth()]
 #'
 #' @examples
-#' @examples
 #' library(ggplot2)
 #' library(dplyr)
 #' library(patchwork)
