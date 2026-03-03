@@ -1,5 +1,5 @@
 # Changelog
 
-## ggwidth 0.0.1
+## ggwidth 0.1.0
 
 - Initial release.
