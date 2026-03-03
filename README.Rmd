@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 
 # ggwidth <a href="https://davidhodge931.github.io/ggwidth/"><img src="man/figures/logo.png" align="right" height="139" alt="ggwidth website" /></a>
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/ggwidth)](https://CRAN.R-project.org/package=ggwidth)
+[![R-universe version](https://davidhodge931.r-universe.dev/ggwidth/badges/version)](https://davidhodge931.r-universe.dev/ggwidth)
 <!-- badges: end -->
 
 The objective of ggwidth is to standardise 'ggplot2' geom width.
