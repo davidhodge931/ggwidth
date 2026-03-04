@@ -16,8 +16,10 @@ Suggests:
     dplyr,
     forcats,
     patchwork,
+    testthat (>= 3.0.0),
     tibble
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Config/testthat/edition: 3
