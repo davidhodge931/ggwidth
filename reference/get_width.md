@@ -27,7 +27,8 @@ get_width(
 
 - ...:
 
-  Must be empty. Forces all other arguments to be named.
+  Must be empty. Forces all other arguments to be named and allows
+  trailing commas.
 
 - n:
 
