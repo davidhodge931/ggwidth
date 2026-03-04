@@ -11,13 +11,15 @@ BugReports: https://github.com/davidhodge931/ggwidth/issues
 Depends: 
     R (>= 4.1.0)
 Imports: 
-    ggplot2 (>= 4.0.0)
+    ggplot2 (>= 4.0.0),
+    rlang
 Suggests: 
     dplyr,
     forcats,
     patchwork,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    withr
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)

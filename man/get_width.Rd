@@ -8,7 +8,7 @@ get_width(
   ...,
   n = NULL,
   n_dodge = NULL,
-  orientation = "x",
+  orientation = c("x", "y"),
   equiwidth = NULL,
   panel_widths = NULL,
   panel_heights = NULL
