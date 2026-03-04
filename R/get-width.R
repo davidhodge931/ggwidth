@@ -5,7 +5,7 @@
 #'
 #' This can be used in geoms such as [geom_bar()]/[geom_col()], [geom_boxplot()], [geom_errorbar()].
 #'
-#' @param ... Must be empty. Forces all other arguments to be named.
+#' @param ... Must be empty. Forces all other arguments to be named and allows trailing commas.
 #' @param n Number of categories in the orientation aesthetic (i.e. `"x"` or `"y"`).
 #'   For faceted plots, use the maximum `n` within a facet.
 #' @param n_dodge Number of dodge categories. Must match the number of groups in

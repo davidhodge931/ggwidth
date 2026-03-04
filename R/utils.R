@@ -11,6 +11,8 @@ safe_convert_mm <- function(x) {
     return(NA)
   }
   u <- if (is.list(x)) x[[1]] else x[1]
+  # Silently return NA if conversion fails — caller is responsible for
+  # checking the result and raising an informative error if needed
   tryCatch(
     {
       val <- grid::convertUnit(u, "mm", valueOnly = TRUE)

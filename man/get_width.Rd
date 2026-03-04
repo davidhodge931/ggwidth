@@ -15,7 +15,7 @@ get_width(
 )
 }
 \arguments{
-\item{...}{Must be empty. Forces all other arguments to be named.}
+\item{...}{Must be empty. Forces all other arguments to be named and allows trailing commas.}
 
 \item{n}{Number of categories in the orientation aesthetic (i.e. \code{"x"} or \code{"y"}).
 For faceted plots, use the maximum \code{n} within a facet.}
