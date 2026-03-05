@@ -30,7 +30,7 @@ safe_convert_mm <- function(x) {
 #' @return No return value. Called for side effects only.
 #'
 #' @noRd
-check_units_equal <- function(u, name) {
+check_units_equal <- function(u, name, call = rlang::caller_env()) {
   if (!is.null(u) && length(u) > 1) {
     vals <- vapply(
       seq_along(u),
@@ -39,8 +39,8 @@ check_units_equal <- function(u, name) {
     )
     if (!all(vals == vals[1])) {
       rlang::abort(
-        sprintf("All elements of `%s` must be equal.", name),
-        call = rlang::caller_env()
+        paste0("All elements of `", name, "` must be equal."),
+        call = call
       )
     }
   }

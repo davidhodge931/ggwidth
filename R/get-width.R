@@ -138,6 +138,9 @@ get_width <- function(
   if (!is.null(equiwidth) && (!is.numeric(equiwidth) || length(equiwidth) != 1 || !is.finite(equiwidth))) {
     rlang::abort("`equiwidth` must be a single finite numeric value.", call = rlang::caller_env())
   }
+  if (!is.null(equiwidth) && equiwidth <= 0) {
+    rlang::abort("`equiwidth` must be a positive value.", call = rlang::caller_env())
+  }
   if (!is.null(panel_widths) && !grid::is.unit(panel_widths)) {
     rlang::abort("`panel_widths` must be a `grid::unit` object.", call = rlang::caller_env())
   }
@@ -151,7 +154,7 @@ get_width <- function(
   # Resolve equiwidth from global option if not supplied, defaulting to 1
   equiwidth <- equiwidth %||% getOption("ggwidth.equiwidth", default = 1)
 
-  # Divide by 7.5 so that equiwidth = 1 is the intuitive default
+  # Normalises so equiwidth = 1 produces a balanced width at reference dimensions
   equiwidth <- equiwidth / 7.5
 
   # 1. Get current theme settings, overriding with supplied dims if provided
@@ -160,8 +163,8 @@ get_width <- function(
   panel_heights <- panel_heights %||% current_theme$panel.heights
 
   # 2. Validate that all panel dimension elements are equal
-  check_units_equal(panel_widths,  "panel_widths")
-  check_units_equal(panel_heights, "panel_heights")
+  check_units_equal(panel_widths,  "panel_widths",  call = rlang::caller_env())
+  check_units_equal(panel_heights, "panel_heights", call = rlang::caller_env())
 
   # 3. Validation and Conversion
   current_panel_dim <- if (orientation == "x") panel_widths else panel_heights
