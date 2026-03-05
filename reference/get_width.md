@@ -169,5 +169,4 @@ mpg |>
     fill = "grey",
   ) +
   theme(panel.widths = unit(160, "mm"))
-
 ```
