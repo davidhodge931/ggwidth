@@ -26,6 +26,8 @@ install.packages("ggwidth")
 pak::pak("davidhodge931/ggwidth")
 ```
 
+## Example
+
 ``` r
 library(ggplot2)
 library(dplyr)
