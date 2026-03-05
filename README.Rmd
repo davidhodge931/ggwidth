@@ -29,11 +29,15 @@ Note this function requires:
 * `"y"` orientation plots to have a y discrete scale with default expand.
 
 ## Installation
+
 Install from CRAN, or development version from [GitHub](https://github.com/).
 ```r
 install.packages("ggwidth") 
 pak::pak("davidhodge931/ggwidth")
 ```
+
+## Example
+
 ```{r setup, message=FALSE}
 library(ggplot2)
 library(dplyr)
