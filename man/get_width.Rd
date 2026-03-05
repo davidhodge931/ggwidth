@@ -125,7 +125,6 @@ mpg |>
     fill = "grey",
   ) +
   theme(panel.widths = unit(160, "mm"))
-
 }
 \seealso{
 \code{\link[=set_equiwidth]{set_equiwidth()}}

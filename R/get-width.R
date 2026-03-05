@@ -107,7 +107,6 @@
 #'     fill = "grey",
 #'   ) +
 #'   theme(panel.widths = unit(160, "mm"))
-#'
 get_width <- function(
     ...,
     n = NULL,
@@ -127,10 +126,16 @@ get_width <- function(
   if (!rlang::is_scalar_integerish(n, finite = TRUE)) {
     rlang::abort("`n` must be a single whole number.", call = rlang::caller_env())
   }
+  if (n <= 0) {
+    rlang::abort("`n` must be a positive whole number.", call = rlang::caller_env())
+  }
   if (!is.null(n_dodge) && !rlang::is_scalar_integerish(n_dodge, finite = TRUE)) {
     rlang::abort("`n_dodge` must be a single whole number.", call = rlang::caller_env())
   }
-  if (!is.null(equiwidth) && (!rlang::is_scalar_double(equiwidth) || !is.finite(equiwidth))) {
+  if (!is.null(n_dodge) && n_dodge <= 0) {
+    rlang::abort("`n_dodge` must be a positive whole number.", call = rlang::caller_env())
+  }
+  if (!is.null(equiwidth) && (!is.numeric(equiwidth) || length(equiwidth) != 1 || !is.finite(equiwidth))) {
     rlang::abort("`equiwidth` must be a single finite numeric value.", call = rlang::caller_env())
   }
   if (!is.null(panel_widths) && !grid::is.unit(panel_widths)) {

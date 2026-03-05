@@ -266,3 +266,26 @@ test_that("get_width() n=5, n_dodge=2, equiwidth=1.5, x, 75mm", {
     tolerance = 1e-6
   )
 })
+
+test_that("get_width() errors if n is zero or negative", {
+  set_standard_theme()
+  expect_error(get_width(n = 0), "`n` must be a positive whole number.")
+  expect_error(get_width(n = -1), "`n` must be a positive whole number.")
+})
+
+test_that("get_width() errors if n_dodge is zero or negative", {
+  set_standard_theme()
+  expect_error(get_width(n = 3, n_dodge = 0), "`n_dodge` must be a positive whole number.")
+  expect_error(get_width(n = 3, n_dodge = -1), "`n_dodge` must be a positive whole number.")
+})
+
+test_that("get_width() accepts integer equiwidth", {
+  set_standard_theme()
+  expect_no_error(get_width(n = 3, equiwidth = 2L))
+})
+
+test_that("set_equiwidth() errors if equiwidth is not a finite numeric value", {
+  expect_error(set_equiwidth("wide"), "`equiwidth` must be a single finite numeric value.")
+  expect_error(set_equiwidth(Inf), "`equiwidth` must be a single finite numeric value.")
+  expect_error(set_equiwidth(c(1, 2)), "`equiwidth` must be a single finite numeric value.")
+})
