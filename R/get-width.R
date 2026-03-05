@@ -121,31 +121,31 @@ get_width <- function(
   orientation <- rlang::arg_match(orientation)
 
   if (is.null(n)) {
-    rlang::abort("`n` must be specified.", call = rlang::caller_env())
+    rlang::abort("`n` must be specified.")
   }
   if (!rlang::is_scalar_integerish(n, finite = TRUE)) {
-    rlang::abort("`n` must be a single whole number.", call = rlang::caller_env())
+    rlang::abort("`n` must be a single whole number.")
   }
   if (n <= 0) {
-    rlang::abort("`n` must be a positive whole number.", call = rlang::caller_env())
+    rlang::abort("`n` must be a positive whole number.")
   }
   if (!is.null(n_dodge) && !rlang::is_scalar_integerish(n_dodge, finite = TRUE)) {
-    rlang::abort("`n_dodge` must be a single whole number.", call = rlang::caller_env())
+    rlang::abort("`n_dodge` must be a single whole number.")
   }
   if (!is.null(n_dodge) && n_dodge <= 0) {
-    rlang::abort("`n_dodge` must be a positive whole number.", call = rlang::caller_env())
+    rlang::abort("`n_dodge` must be a positive whole number.")
   }
   if (!is.null(equiwidth) && (!is.numeric(equiwidth) || length(equiwidth) != 1 || !is.finite(equiwidth))) {
-    rlang::abort("`equiwidth` must be a single finite numeric value.", call = rlang::caller_env())
+    rlang::abort("`equiwidth` must be a single finite numeric value.")
   }
   if (!is.null(equiwidth) && equiwidth <= 0) {
-    rlang::abort("`equiwidth` must be a positive value.", call = rlang::caller_env())
+    rlang::abort("`equiwidth` must be a positive value.")
   }
   if (!is.null(panel_widths) && !grid::is.unit(panel_widths)) {
-    rlang::abort("`panel_widths` must be a `grid::unit` object.", call = rlang::caller_env())
+    rlang::abort("`panel_widths` must be a `grid::unit` object.")
   }
   if (!is.null(panel_heights) && !grid::is.unit(panel_heights)) {
-    rlang::abort("`panel_heights` must be a `grid::unit` object.", call = rlang::caller_env())
+    rlang::abort("`panel_heights` must be a `grid::unit` object.")
   }
 
   # Resolve n_dodge, defaulting to 1 if not supplied
@@ -163,8 +163,8 @@ get_width <- function(
   panel_heights <- panel_heights %||% current_theme$panel.heights
 
   # 2. Validate that all panel dimension elements are equal
-  check_units_equal(panel_widths,  "panel_widths",  call = rlang::caller_env())
-  check_units_equal(panel_heights, "panel_heights", call = rlang::caller_env())
+  check_units_equal(panel_widths,  "panel_widths")
+  check_units_equal(panel_heights, "panel_heights")
 
   # 3. Validation and Conversion
   current_panel_dim <- if (orientation == "x") panel_widths else panel_heights
@@ -175,8 +175,7 @@ get_width <- function(
 
   if (is.na(panel_widths_mm) || is.na(panel_heights_mm)) {
     rlang::abort(
-      "Physical panel widths and heights must both be set in the theme.",
-      call = rlang::caller_env()
+      "Physical panel widths and heights must both be set in the theme."
     )
   }
 
@@ -208,8 +207,7 @@ get_width <- function(
 
   if (width >= 1) {
     rlang::abort(
-      "The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions.",
-      call = rlang::caller_env()
+      "The calculated width must be less than 1. Reduce 'equiwidth' or adjust panel dimensions."
     )
   }
 

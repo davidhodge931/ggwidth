@@ -24,23 +24,23 @@ safe_convert_mm <- function(x) {
 
 #' Check that all elements of a grid unit vector are equal
 #'
-#' @param u A `grid::unit` object, a list containing one, or `NULL`.
+#' @param unit A `grid::unit` object, or `NULL`.
 #' @param name A string naming the argument, used in the error message.
 #'
 #' @return No return value. Called for side effects only.
 #'
 #' @noRd
-check_units_equal <- function(u, name, call = rlang::caller_env()) {
-  if (!is.null(u) && length(u) > 1) {
+check_units_equal <- function(unit, name) {
+  if (!is.null(unit) && length(unit) > 1) {
     vals <- vapply(
-      seq_along(u),
-      function(i) grid::convertUnit(u[i], "mm", valueOnly = TRUE),
+      seq_along(unit),
+      function(i) grid::convertUnit(unit[i], "mm", valueOnly = TRUE),
       numeric(1)
     )
     if (!all(vals == vals[1])) {
       rlang::abort(
         paste0("All elements of `", name, "` must be equal."),
-        call = call
+        call = rlang::caller_env()
       )
     }
   }
