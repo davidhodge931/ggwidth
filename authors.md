@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidhodge931/ggwidth/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidhodge931/ggwidth/blob/0.1.0/DESCRIPTION)
 
 Hodge D (2026). *ggwidth: Standardise 'ggplot2' Geom Width*. R package
 version 0.1.0.9000, <https://github.com/davidhodge931/ggwidth>.
