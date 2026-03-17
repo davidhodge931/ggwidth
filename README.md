@@ -135,6 +135,7 @@ mpg |>
 ## Other packages
 
 This package is part of the `ggblanketverse`.
+
 <table>
 
 <tr>
@@ -160,19 +161,15 @@ This package is part of the `ggblanketverse`.
 </a>
 </td>
 
+</tr>
+
+<tr>
+
 <td align="center" valign="top">
 
 <a href="https://davidhodge931.github.io/ggscribe">
 <img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"/>
 </a>
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-
 </td>
 
 <td align="center" valign="top">
