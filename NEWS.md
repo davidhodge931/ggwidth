@@ -1,6 +1,6 @@
 # ggwidth (development)
 
-* Update internals.
+* Minor changes.
 
 # ggwidth 0.1.0
 
