@@ -134,7 +134,8 @@ mpg |>
 
 ## Other packages
 
-This package is part of the `ggblanketverse`.
+This package is part of a group of related packages built to extend
+[ggplot2](https://ggplot2.tidyverse.org).
 
 <table>
 
@@ -156,8 +157,8 @@ This package is part of the `ggblanketverse`.
 
 <td align="center" valign="top">
 
-<a href="https://davidhodge931.github.io/ggwidth">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg" width="120" alt="ggwidth"/>
+<a href="https://davidhodge931.github.io/ggscribe">
+<img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"/>
 </a>
 </td>
 
@@ -167,8 +168,8 @@ This package is part of the `ggblanketverse`.
 
 <td align="center" valign="top">
 
-<a href="https://davidhodge931.github.io/ggscribe">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"/>
+<a href="https://davidhodge931.github.io/ggwidth">
+<img src="https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg" width="120" alt="ggwidth"/>
 </a>
 </td>
 
