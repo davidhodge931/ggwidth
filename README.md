@@ -174,8 +174,8 @@ This package is part of the `ggblanketverse`.
 
 <td align="center" valign="top">
 
-<a href="https://davidhodge931.github.io/blendle">
-<img src="https://raw.githubusercontent.com/davidhodge931/blendle/main/man/figures/logo.svg" width="120" alt="blendle"/>
+<a href="https://davidhodge931.github.io/blends">
+<img src="https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg" width="120" alt="blends"/>
 </a>
 </td>
 
