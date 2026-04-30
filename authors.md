@@ -10,11 +10,11 @@
 Source:
 [`DESCRIPTION`](https://github.com/davidhodge931/ggwidth/blob/main/DESCRIPTION)
 
-Hodge D (2026). *ggwidth: Standardise 'ggplot2' Geom Width*. R package
-version 0.1.0.9000, <https://github.com/davidhodge931/ggwidth>.
+Hodge D (2026). *ggwidth: Publication-Quality 'ggplot2' Geom Width*. R
+package version 0.1.0.9000, <https://github.com/davidhodge931/ggwidth>.
 
     @Manual{,
-      title = {ggwidth: Standardise 'ggplot2' Geom Width},
+      title = {ggwidth: Publication-Quality 'ggplot2' Geom Width},
       author = {David Hodge},
       year = {2026},
       note = {R package version 0.1.0.9000},
