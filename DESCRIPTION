@@ -1,12 +1,17 @@
 Package: ggwidth
-Title: Standardise 'ggplot2' Geom Width
+Title: Publication-Quality 'ggplot2' Geom Width
 Version: 0.1.0.9000
 Authors@R: 
-    person("David", "Hodge", , "davidhodge931@gmail.com", role = c("aut", "cre", "cph"),
+    person(given = "David", family = "Hodge", 
+           email = "davidhodge931@gmail.com", 
+           role = c("aut", "cre", "cph"), 
            comment = c(ORCID = "0000-0002-3868-7501"))
-Description: Standardise the width in 'ggplot2' geoms to appear visually consistent across plots with different numbers of categories, panel dimensions, and orientations.
+Description: Width helper functions for publication-quality 'ggplot2' 
+    visualisation. These functions make it easier to create geoms such 
+    as bars that have a consistent width appearance across plots.
 License: MIT + file LICENSE
-URL: https://github.com/davidhodge931/ggwidth, https://davidhodge931.github.io/ggwidth/
+URL: https://github.com/davidhodge931/ggwidth,
+    https://davidhodge931.github.io/ggwidth/
 BugReports: https://github.com/davidhodge931/ggwidth/issues
 Depends: 
     R (>= 4.1.0)

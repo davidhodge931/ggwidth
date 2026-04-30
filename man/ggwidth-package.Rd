@@ -4,11 +4,11 @@
 \name{ggwidth-package}
 \alias{ggwidth}
 \alias{ggwidth-package}
-\title{ggwidth: Standardise 'ggplot2' Geom Width}
+\title{ggwidth: Publication-Quality 'ggplot2' Geom Width}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Standardise the width in 'ggplot2' geoms to appear visually consistent across plots with different numbers of categories, panel dimensions, and orientations.
+Width helper functions for publication-quality 'ggplot2' visualisation. These functions make it easier to create geoms such as bars that have a consistent width appearance across plots.
 }
 \seealso{
 Useful links:
