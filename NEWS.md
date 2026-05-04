@@ -1,6 +1,6 @@
-# ggwidth (development)
+# ggwidth 0.1.1
 
-* Minor changes.
+* Updated Description and Readme.
 
 # ggwidth 0.1.0
 

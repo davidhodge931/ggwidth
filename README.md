@@ -141,50 +141,34 @@ This package is part of a group of related packages built to extend
 
 <tr>
 
-<td align="center" valign="top">
+<td align="center">
 
-<a href="https://davidhodge931.github.io/ggblanket/">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg" width="120" alt="ggblanket"/>
-</a>
+<a href="https://davidhodge931.github.io/ggblanket/"><img src="https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg" width="120" alt="ggblanket"/></a>
 </td>
 
-<td align="center" valign="top">
+<td align="center">
 
-<a href="https://davidhodge931.github.io/ggrefine/">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg" width="120" alt="ggrefine"/>
-</a>
+<a href="https://davidhodge931.github.io/ggrefine/"><img src="https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg" width="120" alt="ggrefine"/></a>
 </td>
 
-<td align="center" valign="top">
+<td align="center">
 
-<a href="https://davidhodge931.github.io/ggscribe/">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"/>
-</a>
+<a href="https://davidhodge931.github.io/ggscribe/"><img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"/></a>
 </td>
 
-</tr>
+<td align="center">
 
-<tr>
-
-<td align="center" valign="top">
-
-<a href="https://davidhodge931.github.io/ggwidth/">
-<img src="https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg" width="120" alt="ggwidth"/>
-</a>
+<a href="https://davidhodge931.github.io/ggwidth/"><img src="https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg" width="120" alt="ggwidth"/></a>
 </td>
 
-<td align="center" valign="top">
+<td align="center">
 
-<a href="https://davidhodge931.github.io/blends/">
-<img src="https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg" width="120" alt="blends"/>
-</a>
+<a href="https://davidhodge931.github.io/blends/"><img src="https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg" width="120" alt="blends"/></a>
 </td>
 
-<td align="center" valign="top">
+<td align="center">
 
-<a href="https://davidhodge931.github.io/jumble/">
-<img src="https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg" width="120" alt="jumble"/>
-</a>
+<a href="https://davidhodge931.github.io/jumble/"><img src="https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg" width="120" alt="jumble"/></a>
 </td>
 
 </tr>
