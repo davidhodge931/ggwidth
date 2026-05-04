@@ -22,6 +22,7 @@ Install from CRAN, or development version from
 [GitHub](https://github.com/).
 
 ``` r
+
 install.packages("ggwidth") 
 pak::pak("davidhodge931/ggwidth")
 ```
@@ -29,6 +30,7 @@ pak::pak("davidhodge931/ggwidth")
 ## Example
 
 ``` r
+
 library(ggplot2)
 library(dplyr)
 library(ggwidth)
@@ -44,6 +46,7 @@ set_equiwidth(1)
 ```
 
 ``` r
+
 p1 <- mpg |>
   ggplot(aes(x = drv)) +
   geom_bar(
@@ -83,6 +86,7 @@ p1 + p2 + p3 + p4
 ![](reference/figures/README-example-1-1.png)
 
 ``` r
+
 d <- tibble::tibble(
   continent = c("Europe", "Europe", "Europe", "Europe", "Europe",
                 "South America", "South America"),
@@ -111,6 +115,7 @@ d |>
 ![](reference/figures/README-example-2-1.png)
 
 ``` r
+
 mpg |>
   ggplot(aes(x = drv)) +
   geom_bar(
@@ -128,10 +133,9 @@ mpg |>
 This package is part of a group of related packages built to extend
 [ggplot2](https://ggplot2.tidyverse.org).
 
-|                                                                                                                                                 |                                                                                                                                              |                                                                                                                                              |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------:|
-| [![ggblanket](https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggblanket/) | [![ggrefine](https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggrefine/) | [![ggscribe](https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggscribe/) |
-|    [![ggwidth](https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggwidth/)    |    [![blends](https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg)](https://davidhodge931.github.io/blends/)    |    [![jumble](https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg)](https://davidhodge931.github.io/jumble/)    |
+|  |  |  |  |  |  |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| [![ggblanket](https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggblanket/) | [![ggrefine](https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggrefine/) | [![ggscribe](https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggscribe/) | [![ggwidth](https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggwidth/) | [![blends](https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg)](https://davidhodge931.github.io/blends/) | [![jumble](https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg)](https://davidhodge931.github.io/jumble/) |
 
 # Package index
 
