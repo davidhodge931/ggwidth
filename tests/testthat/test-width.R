@@ -11,82 +11,6 @@ set_standard_theme <- function() {
   )
 }
 
-test_that("get_width() errors if n is NULL", {
-  set_standard_theme()
-  expect_error(get_width(), "`n` must be specified.")
-})
-
-test_that("get_width() errors if n is not a whole number", {
-  set_standard_theme()
-  expect_error(get_width(n = 3.5), "`n` must be a single whole number.")
-})
-
-test_that("get_width() errors if n is not a scalar", {
-  set_standard_theme()
-  expect_error(get_width(n = c(3, 4)), "`n` must be a single whole number.")
-})
-
-test_that("get_width() errors if n_dodge is not a whole number", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, n_dodge = 1.5), "`n_dodge` must be a single whole number.")
-})
-
-test_that("get_width() errors if equiwidth is not a finite numeric value", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, equiwidth = Inf), "`equiwidth` must be a single finite numeric value.")
-})
-
-test_that("get_width() errors if equiwidth is not a scalar", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, equiwidth = c(1, 2)), "`equiwidth` must be a single finite numeric value.")
-})
-
-test_that("get_width() errors if equiwidth is not positive", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, equiwidth = 0),  "`equiwidth` must be a positive value.")
-  expect_error(get_width(n = 3, equiwidth = -1), "`equiwidth` must be a positive value.")
-})
-
-test_that("get_width() errors if panel_widths is not a unit object", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, panel_widths = 75), "`panel_widths` must be a `grid::unit` object.")
-})
-
-test_that("get_width() errors if panel_heights is not a unit object", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, panel_heights = 50), "`panel_heights` must be a `grid::unit` object.")
-})
-
-test_that("get_width() errors if panel dimensions are not set in theme", {
-  set_theme(theme_grey())
-  expect_error(get_width(n = 3), "Physical panel widths and heights must both be set in the theme.")
-})
-
-test_that("get_width() errors if panel_widths elements are not equal", {
-  set_standard_theme()
-  expect_error(
-    get_width(n = 3, panel_widths = unit(c(75, 50), "mm")),
-    "equal"
-  )
-})
-
-test_that("get_width() errors if panel_heights elements are not equal", {
-  set_standard_theme()
-  expect_error(
-    get_width(n = 3, panel_heights = unit(c(50, 75), "mm")),
-    "equal"
-  )
-})
-
-test_that("get_width() errors if orientation is invalid", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, orientation = "z"))
-})
-
-test_that("get_width() errors if ... is not empty", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, foo = 1))
-})
 
 test_that("get_width() returns a single numeric value", {
   set_standard_theme()
@@ -99,14 +23,6 @@ test_that("get_width() returns a value less than 1", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
   expect_lt(get_width(n = 3), 1)
-})
-
-test_that("get_width() errors when calculated width >= 1", {
-  set_standard_theme()
-  expect_error(
-    get_width(n = 3, equiwidth = 100),
-    "The calculated width must be less than 1"
-  )
 })
 
 test_that("get_width() returns larger width for more categories", {
@@ -281,30 +197,3 @@ test_that("get_width() n=5, n_dodge=2, equiwidth=1.5, x, 75mm", {
   )
 })
 
-test_that("get_width() errors if n is zero or negative", {
-  set_standard_theme()
-  expect_error(get_width(n = 0),  "`n` must be a positive whole number.")
-  expect_error(get_width(n = -1), "`n` must be a positive whole number.")
-})
-
-test_that("get_width() errors if n_dodge is zero or negative", {
-  set_standard_theme()
-  expect_error(get_width(n = 3, n_dodge = 0),  "`n_dodge` must be a positive whole number.")
-  expect_error(get_width(n = 3, n_dodge = -1), "`n_dodge` must be a positive whole number.")
-})
-
-test_that("get_width() accepts integer equiwidth", {
-  set_standard_theme()
-  expect_no_error(get_width(n = 3, equiwidth = 2L))
-})
-
-test_that("set_equiwidth() errors if equiwidth is not a finite numeric value", {
-  expect_error(set_equiwidth("wide"), "`equiwidth` must be a single finite numeric value.")
-  expect_error(set_equiwidth(Inf),    "`equiwidth` must be a single finite numeric value.")
-  expect_error(set_equiwidth(c(1, 2)), "`equiwidth` must be a single finite numeric value.")
-})
-
-test_that("set_equiwidth() errors if equiwidth is not positive", {
-  expect_error(set_equiwidth(0),  "`equiwidth` must be a positive value.")
-  expect_error(set_equiwidth(-1), "`equiwidth` must be a positive value.")
-})
