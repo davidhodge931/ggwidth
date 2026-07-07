@@ -1,3 +1,7 @@
+# ggwidth 0.1.2
+
+* Refactored code.
+
 # ggwidth 0.1.1
 
 * Updated Description and Readme.

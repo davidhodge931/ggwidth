@@ -44,7 +44,7 @@ library(ggwidth)
 library(patchwork)
 
 set_theme(
-  theme_grey() +
+  ggplot2::theme_grey() +
     theme(panel.widths  = rep(unit(75, "mm"), 2)) +
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
