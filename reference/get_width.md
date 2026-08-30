@@ -23,7 +23,7 @@ get_width(
   n = NULL,
   n_dodge = NULL,
   orientation = c("x", "y"),
-  equiwidth = NULL,
+  value = NULL,
   panel_widths = NULL,
   panel_heights = NULL
 )
@@ -50,7 +50,7 @@ get_width(
 
   Orientation: `"x"` for vertical geoms, `"y"` for horizontal geoms.
 
-- equiwidth:
+- value:
 
   Numeric scaling factor controlling apparent width. A value of `1` is
   the default. Increase to make a wider appearance; decrease to make a

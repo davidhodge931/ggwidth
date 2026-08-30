@@ -1,17 +1,17 @@
 # Update the global equiwidth
 
-Update a global default for the `equiwidth` argument used by
+Update a global default for the `value` argument used by
 [`get_width()`](https://davidhodge931.github.io/ggwidth/reference/get_width.md).
 
 ## Usage
 
 ``` r
-update_equiwidth(equiwidth = 1)
+update_equiwidth(value = 1)
 ```
 
 ## Arguments
 
-- equiwidth:
+- value:
 
   A single positive finite numeric value.
 
