@@ -42,11 +42,6 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_equiwidth(1)
-```
-
-``` r
-
 p1 <- mpg |>
   ggplot(aes(x = drv)) +
   geom_bar(
@@ -146,6 +141,6 @@ This package is part of a group of related packages built to extend
 
   Standardise `ggplot2` geom width
 
-- [`set_equiwidth()`](https://davidhodge931.github.io/ggwidth/reference/set_equiwidth.md)
-  : Set a global equiwidth
+- [`update_equiwidth()`](https://davidhodge931.github.io/ggwidth/reference/update_equiwidth.md)
+  : Update the global equiwidth
 

@@ -55,7 +55,7 @@ get_width(
   Numeric scaling factor controlling apparent width. A value of `1` is
   the default. Increase to make a wider appearance; decrease to make a
   thinner appearance. If `NULL`, uses the value set by
-  [`set_equiwidth()`](https://davidhodge931.github.io/ggwidth/reference/set_equiwidth.md),
+  [`update_equiwidth()`](https://davidhodge931.github.io/ggwidth/reference/update_equiwidth.md),
   falling back to `1`.
 
 - panel_widths:

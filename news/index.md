@@ -2,6 +2,8 @@
 
 ## ggwidth 0.1.2
 
+CRAN release: 2026-07-07
+
 - Refactored code.
 
 ## ggwidth 0.1.1
