@@ -4,14 +4,14 @@
 \alias{update_equiwidth}
 \title{Update the global equiwidth}
 \usage{
-update_equiwidth(equiwidth = 1)
+update_equiwidth(value = 1)
 }
 \arguments{
-\item{equiwidth}{A single positive finite numeric value.}
+\item{value}{A single positive finite numeric value.}
 }
 \value{
 The previous option value, invisibly.
 }
 \description{
-Update a global default for the \code{equiwidth} argument used by \code{\link[=get_width]{get_width()}}.
+Update a global default for the \code{value} argument used by \code{\link[=get_width]{get_width()}}.
 }

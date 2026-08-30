@@ -31,9 +31,9 @@ test_that("get_width() returns larger width for more categories", {
   expect_lt(get_width(n = 3), get_width(n = 7))
 })
 
-test_that("get_width() returns larger width for larger equiwidth", {
+test_that("get_width() returns larger width for larger value", {
   set_standard_theme()
-  expect_gt(get_width(n = 3, equiwidth = 1.5), get_width(n = 3, equiwidth = 1.0))
+  expect_gt(get_width(n = 3, value = 1.5), get_width(n = 3, value = 1.0))
 })
 
 test_that("get_width() returns larger width for larger n_dodge", {
@@ -83,7 +83,7 @@ test_that("get_width() equal panel_widths vector is accepted", {
   )
 })
 
-test_that("set_equiwidth() affects get_width() when equiwidth is NULL", {
+test_that("update_equiwidth() affects get_width() when value is NULL", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
   w1 <- get_width(n = 3)
@@ -92,12 +92,12 @@ test_that("set_equiwidth() affects get_width() when equiwidth is NULL", {
   expect_gt(w2, w1)
 })
 
-test_that("get_width() explicit equiwidth overrides set_equiwidth()", {
+test_that("get_width() explicit value overrides update_equiwidth()", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 2)
   expect_equal(
-    get_width(n = 3, equiwidth = 1.0),
-    get_width(n = 3, equiwidth = 1.0)
+    get_width(n = 3, value = 1.0),
+    get_width(n = 3, value = 1.0)
   )
 })
 
@@ -123,15 +123,15 @@ test_that("get_width() panel_heights argument overrides theme panel heights", {
   )
 })
 
-test_that("set_equiwidth() sets the global option correctly", {
+test_that("update_equiwidth() sets the global option correctly", {
   withr::local_options(ggwidth.equiwidth = 1)
-  set_equiwidth(1.5)
+  update_equiwidth(1.5)
   expect_equal(getOption("ggwidth.equiwidth"), 1.5)
 })
 
-test_that("set_equiwidth() defaults to 1", {
+test_that("update_equiwidth() defaults to 1", {
   withr::local_options(ggwidth.equiwidth = NULL)
-  set_equiwidth()
+  update_equiwidth()
   expect_equal(getOption("ggwidth.equiwidth"), 1)
 })
 
@@ -139,31 +139,31 @@ test_that("set_equiwidth() defaults to 1", {
 test_that("get_width() reference case: n=3, x, 75mm", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
-  expect_equal(get_width(n = 3), 1 / 7.5, tolerance = 1e-6)
+  expect_equal(get_width(n = 3), 1 / 5, tolerance = 1e-6)
 })
 
 test_that("get_width() n=7, x, 75mm", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
-  expect_equal(get_width(n = 7), (7 / 3) / 7.5, tolerance = 1e-6)
+  expect_equal(get_width(n = 7), (7 / 3) / 5, tolerance = 1e-6)
 })
 
-test_that("get_width() n=3, equiwidth=2, x, 75mm", {
+test_that("get_width() n=3, value=2, x, 75mm", {
   set_standard_theme()
-  expect_equal(get_width(n = 3, equiwidth = 2.0), 2 / 7.5, tolerance = 1e-6)
+  expect_equal(get_width(n = 3, value = 2.0), 2 / 5, tolerance = 1e-6)
 })
 
 test_that("get_width() n=3, n_dodge=4, x, 75mm", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
-  expect_equal(get_width(n = 3, n_dodge = 4), 4 / 7.5, tolerance = 1e-6)
+  expect_equal(get_width(n = 3, n_dodge = 4), 4 / 5, tolerance = 1e-6)
 })
 
 test_that("get_width() n=3, y orientation, 75mm x 50mm", {
   set_standard_theme()
   withr::local_options(ggwidth.equiwidth = 1)
   # ref_n for y = 3 * (50/75) = 2
-  expect_equal(get_width(n = 3, orientation = "y"), (3 / 2) / 7.5, tolerance = 1e-6)
+  expect_equal(get_width(n = 3, orientation = "y"), (3 / 2) / 5, tolerance = 1e-6)
 })
 
 test_that("get_width() n=3, x, panel_widths=150mm", {
@@ -172,7 +172,7 @@ test_that("get_width() n=3, x, panel_widths=150mm", {
   # scaling_factor = 75/150 = 0.5
   expect_equal(
     get_width(n = 3, panel_widths = unit(150, "mm")),
-    (1 / 7.5) * (75 / 150),
+    (1 / 5) * (75 / 150),
     tolerance = 1e-6
   )
 })
@@ -183,17 +183,16 @@ test_that("get_width() n=3, y, panel_heights=100mm", {
   # ref_n for y = 3 * (50/75) = 2, scaling_factor = 50/100 = 0.5
   expect_equal(
     get_width(n = 3, orientation = "y", panel_heights = unit(100, "mm")),
-    ((3 / 2) / 7.5) * (50 / 100),
+    ((3 / 2) / 5) * (50 / 100),
     tolerance = 1e-6
   )
 })
 
-test_that("get_width() n=5, n_dodge=2, equiwidth=1.5, x, 75mm", {
+test_that("get_width() n=4, n_dodge=2, value=1.2, x, 75mm", {
   set_standard_theme()
   expect_equal(
-    get_width(n = 5, n_dodge = 2, equiwidth = 1.5),
-    (5 / 3) * (1.5 / 7.5) * (2 / 1),
+    get_width(n = 4, n_dodge = 2, value = 1.2),
+    (4 / 3) * (1.2 / 5) * (2 / 1),
     tolerance = 1e-6
   )
 })
-

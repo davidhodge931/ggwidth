@@ -9,7 +9,7 @@ get_width(
   n = NULL,
   n_dodge = NULL,
   orientation = c("x", "y"),
-  equiwidth = NULL,
+  value = NULL,
   panel_widths = NULL,
   panel_heights = NULL
 )
@@ -26,7 +26,7 @@ trailing commas.}
 
 \item{orientation}{Orientation: \code{"x"} for vertical geoms, \code{"y"} for horizontal geoms.}
 
-\item{equiwidth}{Numeric scaling factor controlling apparent width. A value of
+\item{value}{Numeric scaling factor controlling apparent width. A value of
 \code{1} is the default. Increase to make a wider appearance; decrease to make a
 thinner appearance. If \code{NULL}, uses the value set by \code{\link[=update_equiwidth]{update_equiwidth()}},
 falling back to \code{1}.}

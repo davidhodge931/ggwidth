@@ -14,23 +14,23 @@
 #' Relative units are not supported.
 #'
 #' @param ... Must be empty. Forces all other arguments to be named and allows
-#'   trailing commas.
+#'    trailing commas.
 #' @param n Number of categories in the orientation aesthetic (that is, `"x"` or
-#'   `"y"`). For faceted plots, use the maximum `n` across facets.
+#'    `"y"`). For faceted plots, use the maximum `n` across facets.
 #' @param n_dodge Number of dodge categories. Intended for use with
-#'   `position_dodge(preserve = "single")`.
+#'    `position_dodge(preserve = "single")`.
 #' @param orientation Orientation: `"x"` for vertical geoms, `"y"` for horizontal geoms.
-#' @param equiwidth Numeric scaling factor controlling apparent width. A value of
-#'   `1` is the default. Increase to make a wider appearance; decrease to make a
-#'   thinner appearance. If `NULL`, uses the value set by [update_equiwidth()],
-#'   falling back to `1`.
+#' @param value Numeric scaling factor controlling apparent width. A value of
+#'    `1` is the default. Increase to make a wider appearance; decrease to make a
+#'    thinner appearance. If `NULL`, uses the value set by [update_equiwidth()],
+#'    falling back to `1`.
 #' @param panel_widths A `grid::unit` object specifying panel widths. If `NULL`,
-#'   uses the value from the current theme.
+#'    uses the value from the current theme.
 #' @param panel_heights A `grid::unit` object specifying panel heights. If `NULL`,
-#'   uses the value from the current theme.
+#'    uses the value from the current theme.
 #'
 #' @return A single numeric width suitable for the `width` argument of geoms such
-#'   as [ggplot2::geom_bar()] or [ggplot2::geom_col()].
+#'    as [ggplot2::geom_bar()] or [ggplot2::geom_col()].
 #'
 #' @export
 get_width <- function(
@@ -38,7 +38,7 @@ get_width <- function(
     n = NULL,
     n_dodge = NULL,
     orientation = c("x", "y"),
-    equiwidth = NULL,
+    value = NULL,
     panel_widths = NULL,
     panel_heights = NULL
 ) {
@@ -47,10 +47,10 @@ get_width <- function(
 
   validate_positive_whole_number(n, "n", required = TRUE)
   validate_positive_whole_number(n_dodge, "n_dodge", required = FALSE)
-  validate_positive_number(equiwidth, "equiwidth", required = FALSE)
+  validate_positive_number(value, "value", required = FALSE)
 
   n_dodge <- n_dodge %||% 1L
-  equiwidth <- equiwidth %||% getOption("ggwidth.equiwidth", default = 1)
+  equiwidth <- value %||% getOption("ggwidth.equiwidth", default = 1)
 
   current_theme <- ggplot2::theme_get()
   panel_widths  <- panel_widths  %||% current_theme$panel.widths
@@ -94,7 +94,7 @@ get_width <- function(
     rlang::abort(
       paste(
         "The calculated width is >= 1.",
-        "Reduce `equiwidth`, reduce `n_dodge`, increase the relevant panel dimension,",
+        "Reduce `value`, reduce `n_dodge`, increase the relevant panel dimension,",
         "or reconsider the reference calibration."
       )
     )
@@ -106,18 +106,18 @@ get_width <- function(
 #' Update the global equiwidth
 #'
 #' @description
-#' Update a global default for the `equiwidth` argument used by [get_width()].
+#' Update a global default for the `value` argument used by [get_width()].
 #'
-#' @param equiwidth A single positive finite numeric value.
+#' @param value A single positive finite numeric value.
 #'
 #' @return The previous option value, invisibly.
 #'
 #' @export
-update_equiwidth <- function(equiwidth = 1) {
-  validate_positive_number(equiwidth, "equiwidth", required = TRUE)
+update_equiwidth <- function(value = 1) {
+  validate_positive_number(value, "value", required = TRUE)
 
   old <- getOption("ggwidth.equiwidth", default = 1)
-  options(ggwidth.equiwidth = equiwidth)
+  options(ggwidth.equiwidth = value)
   invisible(old)
 }
 
@@ -126,7 +126,7 @@ update_equiwidth <- function(equiwidth = 1) {
 #' @param x A `grid::unit` object, a list containing one, or `NULL`.
 #'
 #' @return A single numeric value in millimetres, or `NA_real_` if conversion
-#'   fails or `x` is `NULL`.
+#'    fails or `x` is `NULL`.
 #'
 #' @noRd
 safe_convert_mm <- function(x) {
