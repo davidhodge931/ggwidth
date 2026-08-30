@@ -49,10 +49,6 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_equiwidth(1)
-```
-
-``` r
 p1 <- mpg |>
   ggplot(aes(x = drv)) +
   geom_bar(

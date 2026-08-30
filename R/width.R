@@ -22,7 +22,7 @@
 #' @param orientation Orientation: `"x"` for vertical geoms, `"y"` for horizontal geoms.
 #' @param equiwidth Numeric scaling factor controlling apparent width. A value of
 #'   `1` is the default. Increase to make a wider appearance; decrease to make a
-#'   thinner appearance. If `NULL`, uses the value set by [set_equiwidth()],
+#'   thinner appearance. If `NULL`, uses the value set by [update_equiwidth()],
 #'   falling back to `1`.
 #' @param panel_widths A `grid::unit` object specifying panel widths. If `NULL`,
 #'   uses the value from the current theme.
@@ -83,7 +83,7 @@ get_width <- function(
 
   # Normalisation chosen so equiwidth = 1 corresponds to the package's
   # reference visual width under the reference panel dimensions.
-  equiwidth_norm <- equiwidth / 7.5
+  equiwidth_norm <- equiwidth / 5
 
   width <- (n / ref_n) * equiwidth_norm * n_dodge
 
@@ -103,17 +103,17 @@ get_width <- function(
   width
 }
 
-#' Set a global equiwidth
+#' Update the global equiwidth
 #'
 #' @description
-#' Set a global default for the `equiwidth` argument used by [get_width()].
+#' Update a global default for the `equiwidth` argument used by [get_width()].
 #'
 #' @param equiwidth A single positive finite numeric value.
 #'
 #' @return The previous option value, invisibly.
 #'
 #' @export
-set_equiwidth <- function(equiwidth = 1) {
+update_equiwidth <- function(equiwidth = 1) {
   validate_positive_number(equiwidth, "equiwidth", required = TRUE)
 
   old <- getOption("ggwidth.equiwidth", default = 1)

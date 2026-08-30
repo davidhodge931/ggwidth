@@ -38,7 +38,7 @@ pak::pak("davidhodge931/ggwidth")
 
 ## Example
 
-```{r setup, message=FALSE}
+```{r example-1, message=FALSE}
 library(ggplot2)
 library(dplyr)
 library(ggwidth)
@@ -50,9 +50,6 @@ set_theme(
     theme(panel.heights = rep(unit(50, "mm"), 2))
 )
 
-set_equiwidth(1)
-```
-```{r example-1}
 p1 <- mpg |>
   ggplot(aes(x = drv)) +
   geom_bar(
