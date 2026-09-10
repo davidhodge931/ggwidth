@@ -1,4 +1,4 @@
-# ggwidth (development)
+# ggwidth 0.2.0
 
 * Rescaled width.
 * Renamed set_equiwidth to update_equiwidth.
