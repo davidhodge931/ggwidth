@@ -2,6 +2,8 @@
 
 ## ggwidth 0.2.0
 
+CRAN release: 2026-09-10
+
 - Rescaled width.
 - Renamed set_equiwidth to update_equiwidth.
 
